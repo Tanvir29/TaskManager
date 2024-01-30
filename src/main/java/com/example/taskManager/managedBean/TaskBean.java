@@ -10,6 +10,7 @@ package com.example.taskManager.managedBean;
  */
 
 import com.example.taskManager.model.Task;
+import com.example.taskManager.model.User;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
@@ -27,6 +28,15 @@ public class TaskBean {
 
     private Task task;
     private List<Task> taskList;
+
+    public List<User> getSelectedUsers() {
+        return selectedUsers;
+    }
+
+    public void setSelectedUsers(List<User> selectedUsers) {
+        this.selectedUsers = selectedUsers;
+    }
+    private List<User> selectedUsers;
 
     public Task getTask() {
         return task;
@@ -57,8 +67,11 @@ public class TaskBean {
 
     @Transactional
     public void createTask() {
+        task.setId(2L);
+        task.setAssignees(selectedUsers);
+        System.out.println("user:" + selectedUsers);
         entityManager.persist(task);
-        task = new Task();
+        //task = new Task();
         loadTaskList();
     }
 

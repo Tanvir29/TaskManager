@@ -4,12 +4,14 @@
  */
 package com.example.taskManager.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
@@ -24,7 +26,7 @@ import java.util.List;
 public class Task implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
    
 
@@ -43,7 +45,11 @@ public class Task implements Serializable {
     private TaskStatus status;
 
     @ManyToMany
-    @JoinTable
+    @JoinTable(
+    name = "TASK_USER",
+    joinColumns = @JoinColumn(name = "task_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id")
+)
     private List<User> assignees;
     public Long getId() {
         return id;
