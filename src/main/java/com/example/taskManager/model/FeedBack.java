@@ -4,6 +4,7 @@
  */
 package com.example.taskManager.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,11 +31,11 @@ public class FeedBack implements Serializable {
     private LocalDateTime timestamp;
 
    
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Task task;
 
    
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User commenter;
     public Long getId() {
         return id;

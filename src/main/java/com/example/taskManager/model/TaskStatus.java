@@ -4,10 +4,6 @@
  */
 package com.example.taskManager.model;
 
-/**
- *
- * @author saurav
- */
 public enum TaskStatus {
-    
+    TODO, IN_PROGRESS, COMPLETED, CANCELED
 }
