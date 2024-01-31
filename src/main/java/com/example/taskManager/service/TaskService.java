@@ -21,8 +21,7 @@ public class TaskService {
 
 
     @Transactional
-    public void createTask(Task task, List<User> users) {
-        System.out.println("task details: " + task);
+    public void createTask(Task task) {
         entityManager.persist(task);
         entityManager.flush();
     }

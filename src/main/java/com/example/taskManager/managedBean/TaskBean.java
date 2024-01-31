@@ -72,7 +72,7 @@ public class TaskBean {
             List<Task> userAssignedTasks = user.getAssignedTasks();
             userAssignedTasks.add(task);
         }
-        taskService.createTask(task, selectedUsers);
+        taskService.createTask(task);
         loadTaskList();
     }
 
