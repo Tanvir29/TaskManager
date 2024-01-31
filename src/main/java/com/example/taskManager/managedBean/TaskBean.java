@@ -11,24 +11,24 @@ package com.example.taskManager.managedBean;
 
 import com.example.taskManager.model.Task;
 import com.example.taskManager.model.User;
+import com.example.taskManager.service.TaskService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import java.util.List;
 
 @Named
 @RequestScoped
 public class TaskBean {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
+    @Inject
+    private TaskService taskService;
+    
     private Task task;
     private List<Task> taskList;
-
+    private List<User> selectedUsers;
+    
     public List<User> getSelectedUsers() {
         return selectedUsers;
     }
@@ -36,7 +36,7 @@ public class TaskBean {
     public void setSelectedUsers(List<User> selectedUsers) {
         this.selectedUsers = selectedUsers;
     }
-    private List<User> selectedUsers;
+    
 
     public Task getTask() {
         return task;
@@ -61,26 +61,21 @@ public class TaskBean {
         loadTaskList();
     }
 
-    public void loadTaskList() {
-        taskList = entityManager.createQuery("SELECT t FROM Task t", Task.class).getResultList();
+    public List<Task> loadTaskList() {
+        return taskService.getAllTasks();
     }
 
-    @Transactional
     public void createTask() {
-        task.setId(2L);
+        
         task.setAssignees(selectedUsers);
-        System.out.println("user:" + selectedUsers);
-        entityManager.persist(task);
-        //task = new Task();
+        for (User user : selectedUsers) {
+            List<Task> userAssignedTasks = user.getAssignedTasks();
+            userAssignedTasks.add(task);
+        }
+        taskService.createTask(task, selectedUsers);
         loadTaskList();
     }
 
-    @Transactional
-    public void deleteTask(Task task) {
-        Task mergedTask = entityManager.merge(task);
-        entityManager.remove(mergedTask);
-        loadTaskList();
-    }
 }
 
 

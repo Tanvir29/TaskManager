@@ -21,8 +21,13 @@
                     <h:outputText value="#{user.name}" />
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Password</f:facet>
-                    <h:outputText value="#{user.password}" />
+                    <f:facet name="header">Task List</f:facet>
+                    <h:dataTable value="#{user.assignedTasks}" var="task">
+                        <h:column>
+                            <f:facet name="header">Task Name</f:facet>
+                            <h:outputText value="#{task.toString}" />
+                        </h:column>
+                    </h:dataTable>
                 </h:column>
             </h:dataTable>
         </h:body>

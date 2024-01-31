@@ -14,7 +14,7 @@ import java.util.List;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private String name;
@@ -22,7 +22,7 @@ public class User implements Serializable {
     @NotNull
     private String password; 
 
-    @ManyToMany(mappedBy = "assignees")
+    @ManyToMany
     private List<Task> assignedTasks;
     public Long getId() {
         return id;
@@ -55,10 +55,12 @@ public class User implements Serializable {
     public void setAssignedTasks(List<Task> assignedTasks) {
         this.assignedTasks = assignedTasks;
     }
-    
+
     @Override
     public String toString() {
-        return "com.mycompany.taskmanager.model.User[ id=" + id + " ]";
+        return "User{" + "id=" + id + ", name=" + name + '}';
     }
+    
+    
     
 }

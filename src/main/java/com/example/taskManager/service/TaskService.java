@@ -6,6 +6,7 @@ package com.example.taskManager.service;
  */
 
 import com.example.taskManager.model.Task;
+import com.example.taskManager.model.User;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -20,8 +21,10 @@ public class TaskService {
 
 
     @Transactional
-    public void createTask(Task task) {
+    public void createTask(Task task, List<User> users) {
+        System.out.println("task details: " + task);
         entityManager.persist(task);
+        entityManager.flush();
     }
 
     @Transactional

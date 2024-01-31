@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -45,11 +46,12 @@ public class Task implements Serializable {
     private TaskStatus status;
 
     @ManyToMany
-    @JoinTable(
-    name = "TASK_USER",
-    joinColumns = @JoinColumn(name = "task_id"),
-    inverseJoinColumns = @JoinColumn(name = "user_id")
-)
+//    @JoinTable(
+//    name = "TASK_USER",
+//    joinColumns = @JoinColumn(name = "task_id"),
+//    inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "USER.id")
+//)
+   // @JoinTable
     private List<User> assignees;
     public Long getId() {
         return id;
@@ -94,16 +96,16 @@ public class Task implements Serializable {
     public List<User> getAssignees() {
         return assignees;
     }
-
+    
     public void setAssignees(List<User> assignees) {
         this.assignees = assignees;
     }
-
     
 
     @Override
     public String toString() {
-        return "com.mycompany.taskmanager.model.Task[ id=" + id + " ]";
+        return "Task{" + "id=" + id + ", title=" + title + ", description=" + description + ", status=" + status + ", assignees=" + assignees + '}';
     }
+
     
 }
