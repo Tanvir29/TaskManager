@@ -71,6 +71,7 @@ public class TaskBean {
         for (User user : selectedUsers) {
             List<Task> userAssignedTasks = user.getAssignedTasks();
             userAssignedTasks.add(task);
+            user.setAssignedTasks(userAssignedTasks);
         }
         taskService.createTask(task);
         loadTaskList();
