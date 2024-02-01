@@ -10,9 +10,6 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -56,13 +53,11 @@ public class FeedBackBean {
     }
 
     public void createFeedback() {
-        feedBackService.createFeedback(feedback);
         feedback = new FeedBack();
-        loadFeedbackList();
+        feedBackService.createFeedback(feedback);
     }
 
     public void deleteFeedback(FeedBack feedback) {
-        feedBackService.deleteFeedback(feedback.getId());
-        loadFeedbackList();
+        feedBackService.deleteFeedback(feedback);
     }
 }

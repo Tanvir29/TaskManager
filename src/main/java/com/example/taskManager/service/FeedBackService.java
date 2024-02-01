@@ -27,8 +27,7 @@ public class FeedBackService {
     }
 
     @Transactional
-    public void deleteFeedback(Long feedbackId) {
-        FeedBack feedback = entityManager.find(FeedBack.class, feedbackId);
+    public void deleteFeedback(FeedBack feedback) {
         if (feedback != null) {
             entityManager.remove(feedback);
         }

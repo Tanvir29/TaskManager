@@ -15,6 +15,7 @@ import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class FeedBack implements Serializable {
@@ -26,7 +27,7 @@ public class FeedBack implements Serializable {
     @NotNull
     private String text;
 
-    
+  
     @NotNull
     private LocalDateTime timestamp;
 
@@ -79,4 +80,38 @@ public class FeedBack implements Serializable {
     public String toString() {
         return "com.mycompany.taskmanager.model.FeedBack[ id=" + id + " ]";
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FeedBack other = (FeedBack) obj;
+        if (!Objects.equals(this.text, other.text)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.timestamp, other.timestamp)) {
+            return false;
+        }
+        if (!Objects.equals(this.task, other.task)) {
+            return false;
+        }
+        return Objects.equals(this.commenter, other.commenter);
+    }
+    
 }
