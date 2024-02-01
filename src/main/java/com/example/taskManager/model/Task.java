@@ -19,6 +19,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -111,6 +112,44 @@ public class Task implements Serializable {
     
     public void setAssignees(List<User> assignees) {
         this.assignees = assignees;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.title);
+        hash = 71 * hash + Objects.hashCode(this.description);
+        hash = 71 * hash + Objects.hashCode(this.status);
+        hash = 71 * hash + Objects.hashCode(this.assignees);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Task other = (Task) obj;
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (this.status != other.status) {
+            return false;
+        }
+        return Objects.equals(this.assignees, other.assignees);
     }
     
 

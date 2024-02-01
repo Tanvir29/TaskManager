@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
--->
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-    <title>Edit Task</title>
+    <title>Update the Task</title>
 </h:head>
 
 <h:body>
     <h:form>
         <h:outputLabel for="taskName" value="Task Name:" />
-        <h:inputText id="taskName" value="#{taskBean.task.title}" />
+        <h:inputText id="taskName" value="#{taskBean.taskToEdit.title}" />
+        <br/>
 
         <h:outputLabel for="description" value="Description:" />
-        <h:inputText id="description" value="#{taskBean.task.description}" />
+        <h:inputText id="description" value="#{taskBean.taskToEdit.description}" />
+        <br/>
 
+        <h:outputLabel for="status" value="Status:" />
+        <h:selectOneMenu id="status" value="#{taskBean.taskToEdit.status}" required="true">
+            <f:selectItems value="#{taskStatusBean.taskStatusValues}" />
+        </h:selectOneMenu>
+        <br/>
 
         <h:outputLabel for="assignees" value="Assignees:" />
-        <h:selectManyCheckbox id="assignees" value="#{taskBean.task.assignees}">
-            <f:selectItems value="#{userBean.loadAllUsers}" var="user"
-                           itemLabel="#{user.username}" itemValue="#{user}" />
-        </h:selectManyCheckbox>
+        <h:selectManyCheckbox id="assignees" value="#{taskBean.selectedUsers}" 
+                              converter="userConverter">
+            <f:selectItems value="#{userBean.users}" var="user"
+                           itemLabel="#{user.name}" itemValue="#{user}" />
 
-        <h:commandButton value="Save" action="#{taskBean.createTask}" />
+            <f:ajax execute="@form" render="@form" />
+        </h:selectManyCheckbox>
+        <br/>
+
+        <h:commandButton value="Update Task" action="#{taskBean.editTask}"/>
+
     </h:form>
 </h:body>
-
+    
 </html>
-
-

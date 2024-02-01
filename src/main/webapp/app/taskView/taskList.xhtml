@@ -16,27 +16,41 @@
             <f:facet name="header">Task Name</f:facet>
             #{task.title}
         </h:column>
+        
         <h:column>
             <f:facet name="header">Description</f:facet>
             #{task.description}
         </h:column>
 
         <h:column>
-        <f:facet name="header">Assignees</f:facet>
-        <ul>
-            <li>
-                <ui:repeat value="#{task.assignees}" var="assignee">
-                    #{assignee.toString()} 
-                </ui:repeat>
-            </li>
-        </ul>
-    </h:column>
-    <h:column>
-        <h:form>
-            <h:commandButton value="Add Feedback" action="/app/feedback/feedbackCreate?faces-redirect=true"/>
-        </h:form>
-    </h:column>
-<!--        <h:commandButton value="Delete" action="#{taskBean.deleteTask(task)}" />-->
+            <f:facet name="header">Assignees</f:facet>
+            <ul>
+                <li>
+                    <ui:repeat value="#{task.assignees}" var="assignee">
+                        #{assignee.toString()} 
+                    </ui:repeat>
+                </li>
+            </ul>
+        </h:column>
+        <h:column>
+            <h:form>
+                <h:commandButton value="Add Feedback" action="/app/feedback/feedbackCreate?faces-redirect=true"/>
+            </h:form>
+        </h:column>
+        
+         <h:column>   
+            <f:facet name="header">Action</f:facet>
+            <h:form>
+                <h:commandButton value="Edit" action="#{taskBean.findTask(task.id)}" />
+            </h:form>    
+        </h:column>
+        
+        <h:column>   
+            <f:facet name="header">Action</f:facet>
+            <h:form>
+                <h:commandButton value="Delete" action="#{taskBean.deleteTask(task.id)}" />
+            </h:form>    
+        </h:column>
     </h:dataTable>
 </h:body>
 

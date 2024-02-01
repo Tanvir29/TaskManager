@@ -22,6 +22,7 @@ public class TaskService {
 
     @Transactional
     public void createTask(Task task) {
+        
         entityManager.persist(task);
         entityManager.flush();
     }
@@ -33,6 +34,12 @@ public class TaskService {
             entityManager.remove(task);
         }
     }
+    
+     @Transactional
+    public void editTask(Long taskId) {
+        Task task = entityManager.find(Task.class, taskId);
+        
+    }
 
     public List<Task> getAllTasks() {
         return entityManager.createQuery("SELECT t FROM Task t", Task.class).getResultList();
@@ -40,6 +47,11 @@ public class TaskService {
 
     public Task getTasksById(Long id) {
         return entityManager.find(Task.class, id);
+    }
+    
+    @Transactional
+    public void updateTask(Task taskToEdit) {
+        entityManager.merge(taskToEdit); 
     }
 }
 

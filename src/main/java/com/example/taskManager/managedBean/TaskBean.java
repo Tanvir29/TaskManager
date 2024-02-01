@@ -15,6 +15,8 @@ import com.example.taskManager.service.FeedbackService;
 import com.example.taskManager.service.TaskService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.List;
@@ -28,12 +30,17 @@ public class TaskBean {
     
     @Inject
     private FeedbackService feedbackService;
-    private Task task;
+    
+    private Task task, taskToEdit;
     private List<Task> taskList;
     private List<User> selectedUsers;
     
     public List<User> getSelectedUsers() {
         return selectedUsers;
+    }
+    
+    public Task getTaskToEdit() {
+        return (Task) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("editedTask");
     }
 
     public void setSelectedUsers(List<User> selectedUsers) {
@@ -57,7 +64,7 @@ public class TaskBean {
         this.taskList = taskList;
     }
     
-    // Getters and setters
+
     @PostConstruct
     public void init() {
         task = new Task();
@@ -69,14 +76,28 @@ public class TaskBean {
     }
     
     public String createTask() {
-        
-        task.setAssignees(selectedUsers);
-        for (User user : selectedUsers) {
-            List<Task> userAssignedTasks = user.getAssignedTasks();
-            userAssignedTasks.add(task);
-            user.setAssignedTasks(userAssignedTasks);
-        }
+        System.out.println("Added task : " + task);
         taskService.createTask(task);
+        return "/app/taskView/taskList";
+    }
+    
+    public String findTask(Long id) {
+        Task tasks = taskService.getTasksById(id);
+        System.out.println("Value obt: " + tasks);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("editedTask", tasks);
+        return "/app/taskView/editTask";
+    }
+    
+    
+    public String editTask() {
+        System.out.println("Edit:"+taskToEdit);
+        taskService.updateTask(taskToEdit);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("editedTask");
+        return "/app/taskView/taskList";
+}
+
+    public String deleteTask(Long id){
+        taskService.deleteTask(id);
         return "/app/taskView/taskList";
     }
 
