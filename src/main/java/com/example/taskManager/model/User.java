@@ -24,7 +24,17 @@ public class User implements Serializable {
 
     @NotNull
     @NotBlank
-    private String password; 
+    private String password;
+    
+    private UserRole role;
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
 
     @ManyToMany
     private List<Task> assignedTasks;

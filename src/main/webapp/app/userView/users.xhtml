@@ -12,10 +12,6 @@
         <h:body>
             <h3>All Users</h3>
             
-            <h:form>
-                <h:commandButton value="Add User" action="newUser?faces-redirect=true" />
-            </h:form>
-            
             <h:dataTable value="#{userBean.users}" var="user">
                 <h:column>
                     <f:facet name="header">Id</f:facet>
@@ -24,6 +20,10 @@
                 <h:column>
                     <f:facet name="header">Name</f:facet>
                     <h:outputText value="#{user.name}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Role</f:facet>
+                    <h:outputText value="#{user.role}" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">Task List</f:facet>

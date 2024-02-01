@@ -24,6 +24,14 @@
         <h:message for="userPass" style="color: red;" />
         <br/><br/>
         
+        <h:outputLabel for="userRole" value="User Role" />
+        <h:selectOneMenu id="userRole" value="#{userBean.user.role}" required="true">
+            <f:selectItems value="#{userRoleBean.userRoleValues}" />
+        </h:selectOneMenu>
+        <br/>
+        <h:message for="userRole" style="color: red;" />
+        <br/><br/>
+        
         <h:commandButton value="Create User" action="#{userBean.saveUser}" />
         
     </h:form>

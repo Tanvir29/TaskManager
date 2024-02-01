@@ -10,11 +10,25 @@
         <h:body>
             <h3>This is Admin page!</h3>
             <h:panelGroup>
+                
                 <h:form>
-                    <h:commandButton value="Add task" action="taskView/newTask?faces-redirect=true"/> 
-                    <h:commandButton value="Show all users" action="userView/users?faces-redirect=true"/>
+                    <h:commandButton value="Add task" action="taskView/newTask?faces-redirect=true"/>
+                </h:form>
+                    
+                <h:form>   
                     <h:commandButton value="Show all tasks" action="taskView/taskList?faces-redirect=true"/>
                 </h:form>
+                <br/><br/>
+                
+                
+                <h:form>
+                    <h:commandButton value="Add User" action="userView/newUser?faces-redirect=true" />
+                </h:form>
+                
+                <h:form>
+                    <h:commandButton value="Show all users" action="userView/users?faces-redirect=true"/>
+                </h:form>
+                    
             </h:panelGroup>
         </h:body>
     </f:view>    
