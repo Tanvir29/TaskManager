@@ -58,7 +58,11 @@ public class UserBean {
         user = new User();
         loadAllUsers();
         
-        return "userSuccess";
+        return "/app/userView/users";
+    }
+
+    public User findUserById(long id) {
+        return userRepository.findUserById(id);
     }
 
 }

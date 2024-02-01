@@ -29,5 +29,8 @@ public class UserRepository {
     public List<User> findAllUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
-    
+   
+    public User findUserById(long id) {
+        return entityManager.find(User.class, id);
+    }
 }

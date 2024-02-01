@@ -65,7 +65,7 @@ public class TaskBean {
         return taskService.getAllTasks();
     }
 
-    public void createTask() {
+    public String createTask() {
         
         task.setAssignees(selectedUsers);
         for (User user : selectedUsers) {
@@ -74,7 +74,7 @@ public class TaskBean {
             user.setAssignedTasks(userAssignedTasks);
         }
         taskService.createTask(task);
-        loadTaskList();
+        return "/app/taskView/taskList";
     }
 
 }

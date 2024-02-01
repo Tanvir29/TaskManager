@@ -11,8 +11,9 @@
             <h3>This is Admin page!</h3>
             <h:panelGroup>
                 <h:form>
-                    <h:commandButton value="Add task" action="taskList?faces-redirect=true"/> 
-                    <h:commandButton value="Show all users" action="users?faces-redirect=true"/>
+                    <h:commandButton value="Add task" action="taskView/newTask?faces-redirect=true"/> 
+                    <h:commandButton value="Show all users" action="userView/users?faces-redirect=true"/>
+                    <h:commandButton value="Show all tasks" action="taskView/taskList?faces-redirect=true"/>
                 </h:form>
             </h:panelGroup>
         </h:body>
