@@ -5,21 +5,23 @@
 package com.example.taskManager.managedBean;
 
 import com.example.taskManager.model.User;
+import com.example.taskManager.repository.UserRepository;
 import com.example.taskManager.service.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.io.IOException;
 import java.util.List;
 
 @Named
 @RequestScoped
 public class UserBean {
-
+    
     @Inject
     private UserService userService;
+    
+    @Inject
+    private UserRepository userRepository;
 
     private List<User> users;
 
@@ -48,11 +50,11 @@ public class UserBean {
     }
 
     public void loadAllUsers() {
-        users = userService.getAllUsers();
+        users = userRepository.findAllUsers();
     }
     
     public String saveUser() {
-        userService.saveUser(user);
+        userRepository.saveUser(user);
         user = new User();
         loadAllUsers();
         
