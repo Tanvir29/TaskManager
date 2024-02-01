@@ -31,7 +31,11 @@
             </li>
         </ul>
     </h:column>
-        
+    <h:column>
+        <h:form>
+            <h:commandButton value="Add Feedback" action="/app/feedback/feedbackCreate?faces-redirect=true"/>
+        </h:form>
+    </h:column>
 <!--        <h:commandButton value="Delete" action="#{taskBean.deleteTask(task)}" />-->
     </h:dataTable>
 </h:body>
