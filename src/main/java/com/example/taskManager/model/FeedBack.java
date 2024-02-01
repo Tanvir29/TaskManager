@@ -30,11 +30,6 @@ public class FeedBack implements Serializable {
   
     @NotNull
     private LocalDateTime timestamp;
-
-   
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Task task;
-
    
     @ManyToOne(cascade = CascadeType.ALL)
     private User commenter;
