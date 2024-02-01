@@ -6,9 +6,11 @@ package com.example.taskManager.service;
 
 import com.example.taskManager.model.FeedBack;
 import jakarta.ejb.Stateless;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -20,9 +22,14 @@ public class FeedBackService {
 
     @PersistenceContext
     private EntityManager entityManager;
-
+    
+    @Inject
+    private UserService userService;
+    
     @Transactional
     public void createFeedback(FeedBack feedback) {
+        feedback.setTimestamp(LocalDateTime.now());
+        feedback.setCommenter(userService.getAuthUser());
         entityManager.persist(feedback);
     }
 

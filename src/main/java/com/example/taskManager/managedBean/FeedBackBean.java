@@ -52,9 +52,9 @@ public class FeedBackBean {
         feedbackList = feedBackService.getAllFeedbacks();
     }
 
-    public void createFeedback() {
-        feedback = new FeedBack();
+    public String createFeedback() {
         feedBackService.createFeedback(feedback);
+        return "/app/taskView/taskList";
     }
 
     public void deleteFeedback(FeedBack feedback) {

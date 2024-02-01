@@ -1,0 +1,22 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Create Feedback</title>
+    </h:head>
+
+    <h:body>
+        <h1>Create Feedback</h1>
+
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="text">Feedback Text:</h:outputLabel>
+                <h:inputText id="text" value="#{feedBackBean.feedback.text}" />
+                <h:commandButton value="Submit Feedback" action="#{feedBackBean.createFeedback}" />
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
