@@ -4,8 +4,8 @@
  */
 package com.example.taskManager.managedBean;
 
-import com.example.taskManager.model.FeedBack;
-import com.example.taskManager.service.FeedBackService;
+import com.example.taskManager.model.Feedback;
+import com.example.taskManager.service.FeedbackService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -21,30 +21,30 @@ import java.util.List;
 public class FeedBackBean {
 
     @Inject
-    private FeedBackService feedBackService;
+    private FeedbackService feedBackService;
 
-    private FeedBack feedback;
-    private List<FeedBack> feedbackList;
+    private Feedback feedback;
+    private List<Feedback> feedbackList;
 
-    public FeedBack getFeedback() {
+    public Feedback getFeedback() {
         return feedback;
     }
 
-    public void setFeedback(FeedBack feedback) {
+    public void setFeedback(Feedback feedback) {
         this.feedback = feedback;
     }
 
-    public List<FeedBack> getFeedbackList() {
+    public List<Feedback> getFeedbackList() {
         return feedbackList;
     }
 
-    public void setFeedbackList(List<FeedBack> feedbackList) {
+    public void setFeedbackList(List<Feedback> feedbackList) {
         this.feedbackList = feedbackList;
     }
 
     @PostConstruct
     public void init() {
-        feedback = new FeedBack();
+        feedback = new Feedback();
         loadFeedbackList();
     }
 
@@ -57,7 +57,7 @@ public class FeedBackBean {
         return "/app/taskView/taskList";
     }
 
-    public void deleteFeedback(FeedBack feedback) {
+    public void deleteFeedback(Feedback feedback) {
         feedBackService.deleteFeedback(feedback);
     }
 }

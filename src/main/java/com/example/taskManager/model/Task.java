@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -44,7 +45,18 @@ public class Task implements Serializable {
     @Enumerated(EnumType.STRING)
     @NotNull
     private TaskStatus status;
+    
+    @OneToOne
+    private Feedback feedback;
 
+    public Feedback getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(Feedback feedback) {
+        this.feedback = feedback;
+    }
+    
     @ManyToMany
 //    @JoinTable(
 //    name = "TASK_USER",

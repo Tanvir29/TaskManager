@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-public class FeedBack implements Serializable {
+public class Feedback implements Serializable {
  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,13 +56,6 @@ public class FeedBack implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public Task getTask() {
-        return task;
-    }
-    public void setTask(Task task) {
-        this.task = task;
-    }
-
     public User getCommenter() {
         return commenter;
     }
@@ -93,7 +86,7 @@ public class FeedBack implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final FeedBack other = (FeedBack) obj;
+        final Feedback other = (Feedback) obj;
         if (!Objects.equals(this.text, other.text)) {
             return false;
         }
@@ -101,9 +94,6 @@ public class FeedBack implements Serializable {
             return false;
         }
         if (!Objects.equals(this.timestamp, other.timestamp)) {
-            return false;
-        }
-        if (!Objects.equals(this.task, other.task)) {
             return false;
         }
         return Objects.equals(this.commenter, other.commenter);

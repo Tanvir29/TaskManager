@@ -4,7 +4,9 @@
  */
 package com.example.taskManager.service;
 
-import com.example.taskManager.model.FeedBack;
+import com.example.taskManager.model.Feedback;
+import com.example.taskManager.model.User;
+import com.example.taskManager.repository.UserRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -18,33 +20,35 @@ import java.util.List;
  * @author saurav
  */
 @Stateless
-public class FeedBackService {
+public class FeedbackService {
 
     @PersistenceContext
     private EntityManager entityManager;
     
     @Inject
-    private UserService userService;
+    private UserRepository userRepository;
     
     @Transactional
-    public void createFeedback(FeedBack feedback) {
+    public void createFeedback(Feedback feedback) {
+        //Feedback feedback = new Feedback();
         feedback.setTimestamp(LocalDateTime.now());
-        feedback.setCommenter(userService.getAuthUser());
+        User commenter = userRepository.findUserById(1);
+        feedback.setCommenter(commenter);
         entityManager.persist(feedback);
     }
 
     @Transactional
-    public void deleteFeedback(FeedBack feedback) {
+    public void deleteFeedback(Feedback feedback) {
         if (feedback != null) {
             entityManager.remove(feedback);
         }
     }
 
-    public List<FeedBack> getAllFeedbacks() {
-        return entityManager.createQuery("SELECT f FROM FeedBack f", FeedBack.class).getResultList();
+    public List<Feedback> getAllFeedbacks() {
+        return entityManager.createQuery("SELECT f FROM Feedback f", Feedback.class).getResultList();
     }
 
-    public FeedBack getFeedbackById(Long id) {
-        return entityManager.find(FeedBack.class, id);
+    public Feedback getFeedbackById(Long id) {
+        return entityManager.find(Feedback.class, id);
     }
 }
