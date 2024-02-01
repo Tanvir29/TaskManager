@@ -12,6 +12,7 @@ import com.example.taskManager.model.User;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import java.util.List;
 
 @Stateless
@@ -22,6 +23,11 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+    }
+    
+    @Transactional
+    public void saveUser(User user) {
+        entityManager.persist(user);
     }
 
 }

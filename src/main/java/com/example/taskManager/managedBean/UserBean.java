@@ -8,8 +8,10 @@ import com.example.taskManager.model.User;
 import com.example.taskManager.service.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.io.IOException;
 import java.util.List;
 
 @Named
@@ -21,19 +23,40 @@ public class UserBean {
 
     private List<User> users;
 
-    // Getters and setters
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    public List<User> getUsers() {
+        return users;
+    }
+    
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
     @PostConstruct
     public void init() {
+        user = new User();
         loadAllUsers();
     }
 
     public void loadAllUsers() {
         users = userService.getAllUsers();
     }
-
-    public List<User> getUsers() {
-        return users;
+    
+    public String saveUser() {
+        userService.saveUser(user);
+        user = new User();
+        loadAllUsers();
+        
+        return "userSuccess";
     }
 
 }
