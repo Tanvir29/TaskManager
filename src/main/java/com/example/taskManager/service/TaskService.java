@@ -21,9 +21,7 @@ public class TaskService {
 
     @Transactional
     public void createTask(Task task) {
-        
         entityManager.persist(task);
-        entityManager.flush();
     }
 
     @Transactional

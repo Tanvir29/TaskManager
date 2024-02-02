@@ -26,7 +26,7 @@
         <br/>
 
         <h:outputLabel for="assignees" value="Assignees:" />
-        <h:selectManyCheckbox id="assignees" value="#{taskBean.selectedUsers}" 
+        <h:selectManyCheckbox id="assignees" value="#{taskBean.taskToEdit.assignees}" 
                               converter="userConverter">
             <f:selectItems value="#{userBean.users}" var="user"
                            itemLabel="#{user.name}" itemValue="#{user}" />

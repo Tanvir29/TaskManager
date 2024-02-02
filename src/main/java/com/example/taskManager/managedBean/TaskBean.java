@@ -10,19 +10,19 @@ package com.example.taskManager.managedBean;
  */
 
 import com.example.taskManager.model.Task;
-import com.example.taskManager.model.User;
 import com.example.taskManager.service.FeedbackService;
 import com.example.taskManager.service.TaskService;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
 @Named
-@RequestScoped
-public class TaskBean {
+@SessionScoped
+public class TaskBean implements Serializable{
 
     @Inject
     private TaskService taskService;
@@ -30,22 +30,12 @@ public class TaskBean {
     @Inject
     private FeedbackService feedbackService;
     
-    private Task task, taskToEdit;
-    private List<Task> taskList;
-    private List<User> selectedUsers;
-    
-    public List<User> getSelectedUsers() {
-        return selectedUsers;
-    }
+    private Task task;
     
     public Task getTaskToEdit() {
-        return (Task) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("editedTask");
+        return (Task) FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().get("editedTask");
     }
-
-    public void setSelectedUsers(List<User> selectedUsers) {
-        this.selectedUsers = selectedUsers;
-    }
-    
 
     public Task getTask() {
         return task;
@@ -54,15 +44,6 @@ public class TaskBean {
     public void setTask(Task task) {
         this.task = task;
     }
-
-    public List<Task> getTaskList() {
-        return taskList;
-    }
-
-    public void setTaskList(List<Task> taskList) {
-        this.taskList = taskList;
-    }
-    
 
     @PostConstruct
     public void init() {
@@ -75,23 +56,22 @@ public class TaskBean {
     }
     
     public String createTask() {
-        System.out.println("Added task : " + task);
         taskService.createTask(task);
         return "/app/taskView/taskList";
     }
     
     public String findTask(Long id) {
-        Task tasks = taskService.getTasksById(id);
-        System.out.println("Value obt: " + tasks);
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("editedTask", tasks);
+        task = taskService.getTasksById(id);
+        FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().put("editedTask", task);
         return "/app/taskView/editTask";
     }
     
     
     public String editTask() {
-        System.out.println("Edit:"+taskToEdit);
-        taskService.updateTask(taskToEdit);
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("editedTask");
+        taskService.updateTask(task);
+        FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().remove("editedTask");
         return "/app/taskView/taskList";
 }
 
