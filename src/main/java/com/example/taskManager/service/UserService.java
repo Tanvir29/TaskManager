@@ -8,11 +8,9 @@ package com.example.taskManager.service;
  *
  * @author hasan
  */
-import com.example.taskManager.model.User;
 import com.example.taskManager.repository.UserRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
-import java.util.List;
 
 @Stateless
 public class UserService {

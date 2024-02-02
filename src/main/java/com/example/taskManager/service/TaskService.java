@@ -6,7 +6,6 @@ package com.example.taskManager.service;
  */
 
 import com.example.taskManager.model.Task;
-import com.example.taskManager.model.User;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
