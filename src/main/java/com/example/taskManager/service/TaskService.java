@@ -32,11 +32,6 @@ public class TaskService {
         }
     }
     
-     @Transactional
-    public void editTask(Long taskId) {
-        Task task = entityManager.find(Task.class, taskId);
-        
-    }
 
     public List<Task> getAllTasks() {
         return entityManager.createQuery("SELECT t FROM Task t", Task.class).getResultList();
