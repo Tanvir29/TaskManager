@@ -12,21 +12,21 @@
 <h:body>
     <h:form>
         <h:outputLabel for="taskName" value="Task Name:" />
-        <h:inputText id="taskName" value="#{taskBean.taskToEdit.title}" />
+        <h:inputText id="taskName" value="#{taskBean.task.title}" />
         <br/>
 
         <h:outputLabel for="description" value="Description:" />
-        <h:inputText id="description" value="#{taskBean.taskToEdit.description}" />
+        <h:inputText id="description" value="#{taskBean.task.description}" />
         <br/>
 
         <h:outputLabel for="status" value="Status:" />
-        <h:selectOneMenu id="status" value="#{taskBean.taskToEdit.status}" required="true">
+        <h:selectOneMenu id="status" value="#{taskBean.task.status}" required="true">
             <f:selectItems value="#{taskStatusBean.taskStatusValues}" />
         </h:selectOneMenu>
         <br/>
 
         <h:outputLabel for="assignees" value="Assignees:" />
-        <h:selectManyCheckbox id="assignees" value="#{taskBean.taskToEdit.assignees}" 
+        <h:selectManyCheckbox id="assignees" value="#{taskBean.task.assignees}" 
                               converter="userConverter">
             <f:selectItems value="#{userBean.users}" var="user"
                            itemLabel="#{user.name}" itemValue="#{user}" />
