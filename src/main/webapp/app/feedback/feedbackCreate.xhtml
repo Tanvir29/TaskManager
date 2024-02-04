@@ -13,8 +13,9 @@
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputLabel for="text">Feedback Text:</h:outputLabel>
-                <h:inputText id="text" value="#{feedBackBean.feedback.text}" />
-                <h:commandButton value="Submit Feedback" action="#{feedBackBean.createFeedback}" />
+                <h:inputText id="text" value="#{feedbackBean.feedback.text}"/>
+                <h:inputHidden id="taskId" value="#{feedbackBean.taskId}" />
+                <h:commandButton value="Submit Feedback" action="#{feedbackBean.createFeedback}" />
             </h:panelGrid>
         </h:form>
     </h:body>

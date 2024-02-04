@@ -38,8 +38,12 @@
             </ul>
         </h:column>
         <h:column>
+            <f:facet name="header">Feedback</f:facet>
+            #{task.feedback.text}
+        </h:column>
+        <h:column>
             <h:form>
-                <h:commandButton value="Add Feedback" action="/app/feedback/feedbackCreate?faces-redirect=true"/>
+                <h:commandButton value="Add Feedback" action="#{feedbackBean.createFeedbackForm(task.id)}"/>
             </h:form>
         </h:column>
         
