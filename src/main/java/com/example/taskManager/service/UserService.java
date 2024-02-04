@@ -37,5 +37,13 @@ public class UserService {
     public User findUserById(long id) {
         return entityManager.find(User.class, id);
     }
+    
+    @Transactional
+    public void deleteUser(Long userId) {
+        User user = entityManager.find(User.class, userId);
+        if (user != null) {
+            entityManager.remove(user);
+        }
+    }
 }
 

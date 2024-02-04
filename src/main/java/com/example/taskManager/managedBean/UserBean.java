@@ -60,5 +60,11 @@ public class UserBean {
     public User findUserById(long id) {
         return userService.findUserById(id);
     }
+    
+    public String deleteUser(Long id){
+        userService.deleteUser(id);
+        loadAllUsers();
+        return "/app/userView/users";
+    }
 
 }
