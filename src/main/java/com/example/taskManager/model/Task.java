@@ -76,7 +76,7 @@ public class Task implements Serializable {
     public String getDescription() {
         return description;
     }
-
+    
     public void setDescription(String description) {
         this.description = description;
     }
@@ -96,7 +96,7 @@ public class Task implements Serializable {
     public void setStatus(TaskStatus status) {
         this.status = status;
     }
-
+    
     public List<User> getAssignees() {
         return assignees;
     }

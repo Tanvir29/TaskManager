@@ -5,6 +5,7 @@
 package com.example.taskManager.service;
 
 import com.example.taskManager.model.Feedback;
+import com.example.taskManager.model.Task;
 import com.example.taskManager.model.User;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -26,13 +27,16 @@ public class FeedbackService {
     @Inject
     private UserService userService;
     
+    @Inject
+    private TaskService taskService;
+    
     @Transactional
-    public void createFeedback(Feedback feedback) {
-        //Feedback feedback = new Feedback();
+    public void createFeedback(Long taskId,Feedback feedback) {
         feedback.setTimestamp(LocalDateTime.now());
         User commenter = userService.findUserById(1);
         feedback.setCommenter(commenter);
         entityManager.persist(feedback);
+        taskService.addFeedback(taskId,feedback);
     }
 
     @Transactional

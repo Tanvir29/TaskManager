@@ -55,13 +55,13 @@ public class TaskBean implements Serializable{
         return "/app/taskView/taskList";
     }
     
+ 
     public String findTask(Long id) {
         task = taskService.getTasksById(id);
         FacesContext.getCurrentInstance().getExternalContext().
                 getSessionMap().put("editedTask", task);
         return "/app/taskView/editTask.xhtml?faces-redirect=true&id=" + id;
     }
-    
     
     public String editTask() {
         taskService.updateTask(task);
