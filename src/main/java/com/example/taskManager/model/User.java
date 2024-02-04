@@ -28,7 +28,10 @@ public class User implements Serializable {
     private String password;
     
     private UserRole role;
-
+    
+    @ManyToMany
+    private List<Task> assignedTasks;
+    
     public UserRole getRole() {
         return role;
     }
@@ -37,8 +40,6 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    @ManyToMany
-    private List<Task> assignedTasks;
     public Long getId() {
         return id;
     }
@@ -61,6 +62,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+    public List<Task> getAssignedTasks() {
+        return assignedTasks;
+    }
+
+    public void setAssignedTasks(List<Task> assignedTasks) {
+        this.assignedTasks = assignedTasks;
     }
 
     @Override
@@ -91,14 +100,6 @@ public class User implements Serializable {
             return false;
         }
         return Objects.equals(this.id, other.id);
-    }
-
-    public List<Task> getAssignedTasks() {
-        return assignedTasks;
-    }
-
-    public void setAssignedTasks(List<Task> assignedTasks) {
-        this.assignedTasks = assignedTasks;
     }
 
     @Override

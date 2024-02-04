@@ -54,14 +54,9 @@ public class Task implements Serializable {
         this.feedback = feedback;
     }
     
-    @ManyToMany
-//    @JoinTable(
-//    name = "TASK_USER",
-//    joinColumns = @JoinColumn(name = "task_id"),
-//    inverseJoinColumns = @JoinColumn(name = "user_id",referencedColumnName = "USER.id")
-//)
-   // @JoinTable
+    @ManyToMany(mappedBy = "assignedTasks")
     private List<User> assignees;
+    
     public Long getId() {
         return id;
     }
