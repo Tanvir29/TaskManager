@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -8,60 +7,66 @@
 
 <h:head>
     <title>Task List Management</title>
+
+    <h:outputStylesheet library="webjars" name="bootstrap/5.2.3/css/bootstrap.min.css"/>
 </h:head>
 
 <h:body>
-    <h:dataTable value="#{taskBean.loadTaskList()}" var="task">
-        <h:column>
-            <f:facet name="header">Task Name</f:facet>
-            #{task.title}
-        </h:column>
-        
-        <h:column>
-            <f:facet name="header">Description</f:facet>
-            #{task.description}
-        </h:column>
-        
-        <h:column>
-            <f:facet name="header">Progress Status</f:facet>
-            #{task.status}
-        </h:column>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Task List Management</h1>
 
-        <h:column>
-            <f:facet name="header">Assignees</f:facet>
-            <ul>
-                <li>
-                    <ui:repeat value="#{task.assignees}" var="assignee">
-                        #{assignee.toString()} 
-                    </ui:repeat>
-                </li>
-            </ul>
-        </h:column>
-        <h:column>
-            <f:facet name="header">Feedback</f:facet>
-            #{task.feedback.text}
-        </h:column>
-        <h:column>
-            <h:form>
-                <h:commandButton value="Add Feedback" action="#{feedbackBean.createFeedbackForm(task.id)}"/>
-            </h:form>
-        </h:column>
-        
-         <h:column>   
-            <f:facet name="header">Action</f:facet>
-            <h:form>
-                <h:commandButton value="Edit" action="#{taskBean.findTask(task.id)}" />
-            </h:form>    
-        </h:column>
-        
-        <h:column>   
-            <f:facet name="header">Action</f:facet>
-            <h:form>
-                <h:commandButton value="Delete" action="#{taskBean.deleteTask(task.id)}" />
-            </h:form>    
-        </h:column>
-    </h:dataTable>
+        <h:dataTable value="#{taskBean.loadTaskList()}" var="task" styleClass="table table-striped">
+            <h:column>
+                <f:facet name="header">Task Name</f:facet>
+                #{task.title}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Description</f:facet>
+                #{task.description}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Progress Status</f:facet>
+                #{task.status}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Assignees</f:facet>
+                <ul class="list-unstyled">
+                    <li>
+                        <ui:repeat value="#{task.assignees}" var="assignee">
+                            #{assignee.id} 
+                        </ui:repeat>
+                    </li>
+                </ul>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Feedback</f:facet>
+                #{task.feedback.text}
+            </h:column>
+
+            <h:column>
+                <h:form>
+                    <h:commandButton value="Feedback" class="btn btn-primary" action="#{feedbackBean.createFeedbackForm(task.id)}"/>
+                </h:form>
+            </h:column>
+
+            <h:column>
+                <h:form>
+                    <h:commandButton value="Edit" class="btn btn-secondary" action="#{taskBean.findTask(task.id)}" />
+                </h:form>
+            </h:column>
+
+            <h:column>
+                <h:form>
+                    <h:commandButton value="Delete" class="btn btn-danger" action="#{taskBean.deleteTask(task.id)}" />
+                </h:form>
+            </h:column>
+        </h:dataTable>
+    </div>
 </h:body>
-
 </html>
+
 

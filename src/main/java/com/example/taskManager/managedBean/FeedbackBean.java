@@ -73,7 +73,6 @@ public class FeedbackBean {
     }
     public String createFeedback() {
         feedBackService.createFeedback(taskId,feedback);
-        //feedback = new Feedback();
         return "/app/taskView/taskList";
     }
 
