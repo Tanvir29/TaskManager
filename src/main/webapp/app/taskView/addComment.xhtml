@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Add Comment</title>
+    </h:head>
+
+    <h:body>
+        <h1>Add Comment</h1>
+
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="text">Comment:</h:outputLabel>
+                <h:inputText id="text" value="#{taskBean.commentText}"/>
+                <h:commandButton value="Add Comment" action="#{taskBean.addComment}" />
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

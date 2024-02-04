@@ -41,8 +41,13 @@
                         </li>
                     </ul>
                     <h:form>
-                        <h:commandButton value="Add Comment" class="btn btn-secondary" action="#{taskBean.addComment(task.id)}" />
+                        <h:commandButton value="Add Comment" class="btn btn-secondary" action="#{taskBean.createCommentForm(task.id)}" />
                     </h:form>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Comment</f:facet>
+                        #{task.comment}
                 </h:column>
 
                 <h:column>
@@ -68,6 +73,11 @@
                     </h:form>
                 </h:column>
             </h:dataTable>
+            
+            <h:form>
+                <h:commandButton value="Back to Home Page" class="btn btn-secondary" action="/app/index.xhtml?faces-redirect=true" />
+            </h:form>
+            
         </div>
     </h:body>
 </html>

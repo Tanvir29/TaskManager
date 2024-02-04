@@ -51,5 +51,10 @@ public class TaskService {
         task.setFeedback(feedback);
         entityManager.merge(task);
     }
+
+    public void addComment(Task task, String commentText) {
+        task.setComment(commentText);
+        entityManager.merge(task);
+    }
 }
 

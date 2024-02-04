@@ -156,7 +156,7 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "Task{" + "id=" + id + ", title=" + title + ", description=" + description + ", status=" + status + ", assignees=" + assignees + '}';
+        return "Task{" + "id=" + id + ", title=" + title + ", description=" + description + ", status=" + status + '}';
     }
 
     
