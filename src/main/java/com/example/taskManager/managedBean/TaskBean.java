@@ -31,11 +31,6 @@ public class TaskBean implements Serializable{
     private FeedbackService feedbackService;
     
     private Task task;
-    
-    public Task getTaskToEdit() {
-        return (Task) FacesContext.getCurrentInstance().getExternalContext().
-                getSessionMap().get("editedTask");
-    }
 
     public Task getTask() {
         return task;
@@ -64,7 +59,7 @@ public class TaskBean implements Serializable{
         task = taskService.getTasksById(id);
         FacesContext.getCurrentInstance().getExternalContext().
                 getSessionMap().put("editedTask", task);
-        return "/app/taskView/editTask";
+        return "/app/taskView/editTask.xhtml?faces-redirect=true&id=" + id;
     }
     
     
