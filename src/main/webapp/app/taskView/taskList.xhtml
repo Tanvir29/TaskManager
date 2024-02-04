@@ -41,7 +41,8 @@
                         </li>
                     </ul>
                     <h:form>
-                        <h:commandButton value="Add Comment" class="btn btn-secondary" action="#{taskBean.createCommentForm(task.id)}" />
+                        <h:commandButton value="Add Comment" class="btn btn-secondary"
+                                         action="#{taskBean.createCommentForm(task.id)}" />
                     </h:form>
                 </h:column>
                 
@@ -57,25 +58,29 @@
 
                 <h:column>
                     <h:form>
-                        <h:commandButton value="Feedback" class="btn btn-primary" action="#{feedbackBean.createFeedbackForm(task.id)}"/>
+                        <h:commandButton value="Feedback" class="btn btn-primary"
+                                         action="#{feedbackBean.createFeedbackForm(task.id)}"/>
                     </h:form>
                 </h:column>
 
                 <h:column>
                     <h:form>
-                        <h:commandButton value="Edit" class="btn btn-secondary" action="#{taskBean.findTask(task.id)}" />
+                        <h:commandButton value="Edit" class="btn btn-secondary"
+                                         action="#{taskBean.findTask(task.id)}" />
                     </h:form>
                 </h:column>
 
                 <h:column>
                     <h:form>
-                        <h:commandButton value="Delete" class="btn btn-danger" action="#{taskBean.deleteTask(task.id)}" />
+                        <h:commandButton value="Delete" class="btn btn-danger"
+                                         action="#{taskBean.deleteTask(task.id)}" />
                     </h:form>
                 </h:column>
             </h:dataTable>
             
             <h:form>
-                <h:commandButton value="Back to Home Page" class="btn btn-secondary" action="/app/index.xhtml?faces-redirect=true" />
+                <h:commandButton value="Back to Home Page" class="btn btn-secondary"
+                                 action="/app/index.xhtml?faces-redirect=true" />
             </h:form>
             
         </div>

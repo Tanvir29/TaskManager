@@ -7,6 +7,7 @@ package com.example.taskManager.service;
 
 import com.example.taskManager.model.Feedback;
 import com.example.taskManager.model.Task;
+import com.example.taskManager.model.User;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -29,6 +30,12 @@ public class TaskService {
     public void deleteTask(Long taskId) {
         Task task = entityManager.find(Task.class, taskId);
         if (task != null) {
+            List<User> assignees = task.getAssignees();        
+            if (assignees != null) {
+                for (User user : assignees) {
+                    user.getAssignedTasks().remove(task);
+                }
+            }
             entityManager.remove(task);
         }
     }
