@@ -45,14 +45,8 @@ public class Task implements Serializable {
     
     @OneToOne
     private Feedback feedback;
-
-    public Feedback getFeedback() {
-        return feedback;
-    }
-
-    public void setFeedback(Feedback feedback) {
-        this.feedback = feedback;
-    }
+    
+    private String comment;
     
     @ManyToMany
     private List<User> assignees;
@@ -95,6 +89,22 @@ public class Task implements Serializable {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+    
+    public Feedback getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(Feedback feedback) {
+        this.feedback = feedback;
+    }
+    
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
     
     public List<User> getAssignees() {

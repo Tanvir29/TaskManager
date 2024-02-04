@@ -74,6 +74,11 @@ public class TaskBean implements Serializable{
         taskService.deleteTask(id);
         return "/app/taskView/taskList";
     }
+    
+    public String addComment(Long taskId){
+        task = taskService.getTasksById(taskId);
+        
+    }
 
 }
 
