@@ -8,15 +8,34 @@ package com.example.taskManager.service;
  *
  * @author hasan
  */
-import com.example.taskManager.repository.UserRepository;
+import com.example.taskManager.model.User;
 import jakarta.ejb.Stateless;
-import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+import java.util.List;
 
+/**
+ *
+ * @author Fardin
+ */
 @Stateless
 public class UserService {
+    
+    @PersistenceContext
+    private EntityManager entityManager;
+    
+    @Transactional
+    public void saveUser(User user) {
+        entityManager.persist(user);
+    }
 
-    @Inject
-    private UserRepository userRepository;
-
+    public List<User> findAllUsers() {
+        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
+    }
+   
+    public User findUserById(long id) {
+        return entityManager.find(User.class, id);
+    }
 }
 
