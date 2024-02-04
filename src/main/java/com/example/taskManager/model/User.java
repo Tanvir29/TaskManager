@@ -29,7 +29,7 @@ public class User implements Serializable {
     
     private UserRole role;
     
-    @ManyToMany
+    @ManyToMany(mappedBy = "assignees")
     private List<Task> assignedTasks;
     
     public UserRole getRole() {

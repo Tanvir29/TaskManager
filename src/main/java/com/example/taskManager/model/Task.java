@@ -54,7 +54,7 @@ public class Task implements Serializable {
         this.feedback = feedback;
     }
     
-    @ManyToMany(mappedBy = "assignedTasks")
+    @ManyToMany
     private List<User> assignees;
     
     public Long getId() {
