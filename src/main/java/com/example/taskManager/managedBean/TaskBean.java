@@ -47,8 +47,12 @@ public class TaskBean implements Serializable{
 
     @PostConstruct
     public void init() {
-        task = new Task();
+        createNewTask();
         loadTaskList();
+    }
+    
+    public void createNewTask() {
+        task = new Task();
     }
 
     public List<Task> loadTaskList() {
@@ -57,38 +61,38 @@ public class TaskBean implements Serializable{
     
     public String createTask() {
         taskService.createTask(task);
-        return "/app/taskView/taskList";
+
+        return "/app/taskView/taskList?faces-redirect=true";
     }
     
  
     public String findTask(Long id) {
         task = taskService.getTasksById(id);
-        FacesContext.getCurrentInstance().getExternalContext().
-                getSessionMap().put("editedTask", task);
+
         return "/app/taskView/editTask.xhtml?faces-redirect=true&id=" + id;
     }
     
     public String editTask() {
         taskService.updateTask(task);
-        FacesContext.getCurrentInstance().getExternalContext().
-                getSessionMap().remove("editedTask");
-        return "/app/taskView/taskList";
-}
+
+        return "/app/taskView/taskList?faces-redirect=true";
+    }
 
     public String deleteTask(Long id){
         taskService.deleteTask(id);
-        return "/app/taskView/taskList";
+        return "/app/taskView/taskList?faces-redirect=true";
     }
     
     public String createCommentForm(Long taskId){
         task = taskService.getTasksById(taskId);
         commentText = task.getComment();
-        return "/app/taskView/addComment";
+        return "/app/taskView/addComment?faces-redirect=true";
     }
     
     public String addComment(){
         taskService.addComment(task, commentText);
-        return "/app/taskView/taskList";
+        
+        return "/app/taskView/taskList?faces-redirect=true";
     }
 
 }

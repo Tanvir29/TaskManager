@@ -51,10 +51,8 @@ public class UserBean {
     
     public String saveUser() {
         userService.saveUser(user);
-        user = new User();
-        loadAllUsers();
         
-        return "/app/userView/users";
+        return "/app/userView/users?faces-redirect=true";
     }
 
     public User findUserById(long id) {
@@ -63,8 +61,7 @@ public class UserBean {
     
     public String deleteUser(Long id){
         userService.deleteUser(id);
-        loadAllUsers();
-        return "/app/userView/users";
+        return "/app/userView/users?faces-redirect=true";
     }
 
 }
