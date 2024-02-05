@@ -27,30 +27,25 @@ public class Task implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-   
 
     @NotNull
     private String title;
 
     @NotNull
     private String description;
-//
-//    @Temporal(TemporalType.DATE)
-//    @NotNull
-//    private LocalDate dueDate;
 
     @Enumerated(EnumType.STRING)
     @NotNull
     private TaskStatus status;
-    
+
     @OneToOne
     private Feedback feedback;
-    
+
     private String comment;
-    
+
     @ManyToMany
     private List<User> assignees;
-    
+
     public Long getId() {
         return id;
     }
@@ -70,18 +65,10 @@ public class Task implements Serializable {
     public String getDescription() {
         return description;
     }
-    
+
     public void setDescription(String description) {
         this.description = description;
     }
-
-//    public LocalDate getDueDate() {
-//        return dueDate;
-//    }
-//
-//    public void setDueDate(LocalDate dueDate) {
-//        this.dueDate = dueDate;
-//    }
 
     public TaskStatus getStatus() {
         return status;
@@ -90,7 +77,7 @@ public class Task implements Serializable {
     public void setStatus(TaskStatus status) {
         this.status = status;
     }
-    
+
     public Feedback getFeedback() {
         return feedback;
     }
@@ -98,7 +85,7 @@ public class Task implements Serializable {
     public void setFeedback(Feedback feedback) {
         this.feedback = feedback;
     }
-    
+
     public String getComment() {
         return comment;
     }
@@ -106,11 +93,11 @@ public class Task implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
+
     public List<User> getAssignees() {
         return assignees;
     }
-    
+
     public void setAssignees(List<User> assignees) {
         this.assignees = assignees;
     }
@@ -152,12 +139,10 @@ public class Task implements Serializable {
         }
         return Objects.equals(this.assignees, other.assignees);
     }
-    
 
     @Override
     public String toString() {
         return "Task{" + "id=" + id + ", title=" + title + ", description=" + description + ", status=" + status + '}';
     }
 
-    
 }

@@ -5,7 +5,6 @@
 package com.example.taskManager.service;
 
 import com.example.taskManager.model.Feedback;
-import com.example.taskManager.model.Task;
 import com.example.taskManager.model.User;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;

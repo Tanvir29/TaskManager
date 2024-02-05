@@ -10,7 +10,6 @@ package com.example.taskManager.managedBean;
  */
 
 import com.example.taskManager.model.Task;
-import com.example.taskManager.service.FeedbackService;
 import com.example.taskManager.service.TaskService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
@@ -26,9 +25,6 @@ public class TaskBean implements Serializable{
 
     @Inject
     private TaskService taskService;
-    
-    @Inject
-    private FeedbackService feedbackService;
     
     private Task task;
     private String commentText;

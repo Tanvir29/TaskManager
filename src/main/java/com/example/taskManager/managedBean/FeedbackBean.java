@@ -26,13 +26,9 @@ public class FeedbackBean {
     @Inject
     private FeedbackService feedBackService;
     
-    @Inject
-    private TaskService taskService;
-    
     private Feedback feedback;
     
     private Long taskId;
-    private List<Feedback> feedbackList;
     
     public Long getTaskId() {
         return taskId;
@@ -49,23 +45,11 @@ public class FeedbackBean {
         this.feedback = feedback;
     }
 
-    public List<Feedback> getFeedbackList() {
-        return feedbackList;
-    }
-
-    public void setFeedbackList(List<Feedback> feedbackList) {
-        this.feedbackList = feedbackList;
-    }
-
     @PostConstruct
     public void init() {
         feedback = new Feedback();
-        loadFeedbackList();
     }
 
-    public void loadFeedbackList() {
-        feedbackList = feedBackService.getAllFeedbacks();
-    }
     
     public String createFeedbackForm(Long taskId){
         this.taskId = taskId;
