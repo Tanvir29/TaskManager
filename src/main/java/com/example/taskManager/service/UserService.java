@@ -9,9 +9,11 @@ package com.example.taskManager.service;
  * @author hasan
  */
 import com.example.taskManager.model.User;
+import com.example.taskManager.model.UserRole;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
@@ -44,6 +46,16 @@ public class UserService {
         if (user != null) {
             entityManager.remove(user);
         }
+    }
+
+    public User findAdmin() {
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE u.role = :role", User.class);
+
+        query.setParameter("role", UserRole.ADMIN);
+        User adminUser = query.getSingleResult();
+        
+        return adminUser;
     }
 }
 

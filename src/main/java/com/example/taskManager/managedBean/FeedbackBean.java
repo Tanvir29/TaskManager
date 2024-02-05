@@ -5,15 +5,11 @@
 package com.example.taskManager.managedBean;
 
 import com.example.taskManager.model.Feedback;
-import com.example.taskManager.model.Task;
 import com.example.taskManager.service.FeedbackService;
-import com.example.taskManager.service.TaskService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import java.util.List;
 
 /**
  *
@@ -57,7 +53,7 @@ public class FeedbackBean {
     }
     public String createFeedback() {
         feedBackService.createFeedback(taskId,feedback);
-        return "/app/taskView/taskList";
+        return "/app/taskView/taskList?faces-redirect=true";
     }
 
     public void deleteFeedback(Feedback feedback) {

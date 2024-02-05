@@ -32,7 +32,7 @@ public class FeedbackService {
     @Transactional
     public void createFeedback(Long taskId,Feedback feedback) {
         feedback.setTimestamp(LocalDateTime.now());
-        User commenter = userService.findUserById(1);
+        User commenter = userService.findAdmin();
         feedback.setCommenter(commenter);
         entityManager.persist(feedback);
         taskService.addFeedback(taskId,feedback);

@@ -13,7 +13,6 @@ import com.example.taskManager.model.Task;
 import com.example.taskManager.service.TaskService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
@@ -69,7 +68,7 @@ public class TaskBean implements Serializable{
     public String findTask(Long id) {
         task = taskService.getTasksById(id);
 
-        return "/app/taskView/editTask.xhtml?faces-redirect=true&id=" + id;
+        return "/app/taskView/editTask.xhtml?faces-redirect=true";
     }
     
     public String editTask() {
