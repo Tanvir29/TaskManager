@@ -47,9 +47,8 @@ public class FeedbackBean {
     }
 
     
-    public String createFeedbackForm(Long taskId){
-        this.taskId = taskId;
-        return "/app/feedback/feedbackCreate";
+    public String createFeedbackForm(Long taskId){  
+        return "/app/feedback/feedbackCreate?faces-redirect=true&id=" + taskId;
     }
     public String createFeedback() {
         feedBackService.createFeedback(taskId,feedback);

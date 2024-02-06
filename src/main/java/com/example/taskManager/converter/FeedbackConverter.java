@@ -19,7 +19,7 @@ import jakarta.inject.Inject;
  */
 
 
-@FacesConverter("feedbackConverter")
+@FacesConverter(value = "feedbackConverter")
 public class FeedbackConverter implements Converter {
     
     @Inject
