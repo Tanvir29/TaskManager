@@ -26,15 +26,6 @@ public class TaskBean implements Serializable{
     private TaskService taskService;
     
     private Task task;
-    private String commentText;
-
-    public String getCommentText() {
-        return commentText;
-    }
-
-    public void setCommentText(String commentText) {
-        this.commentText = commentText;
-    }
 
     public Task getTask() {
         return task;
@@ -79,19 +70,14 @@ public class TaskBean implements Serializable{
 
     public String deleteTask(Long id){
         taskService.deleteTask(id);
+        
         return "/app/taskView/taskList?faces-redirect=true";
     }
     
     public String createCommentForm(Long taskId){
         task = taskService.getTasksById(taskId);
-        commentText = task.getComment();
+
         return "/app/taskView/addComment?faces-redirect=true";
-    }
-    
-    public String addComment(){
-        taskService.addComment(task, commentText);
-        
-        return "/app/taskView/taskList?faces-redirect=true";
     }
 
 }

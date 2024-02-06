@@ -12,8 +12,8 @@
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputLabel for="text">Comment:</h:outputLabel>
-                <h:inputText id="text" value="#{taskBean.commentText}"/>
-                <h:commandButton value="Add Comment" action="#{taskBean.addComment}" />
+                <h:inputText id="text" value="#{taskBean.task.comment}"/>
+                <h:commandButton value="Add Comment" action="#{taskBean.editTask()}" />
             </h:panelGrid>
         </h:form>
     </h:body>
