@@ -51,6 +51,7 @@ public class TaskBean implements Serializable{
     
     public String createTask() {
         taskService.createTask(task);
+        createNewTask();
 
         return "/app/taskView/taskList?faces-redirect=true";
     }
@@ -64,12 +65,14 @@ public class TaskBean implements Serializable{
     
     public String editTask() {
         taskService.updateTask(task);
+        createNewTask();
 
         return "/app/taskView/taskList?faces-redirect=true";
     }
 
     public String deleteTask(Long id){
         taskService.deleteTask(id);
+        createNewTask();
         
         return "/app/taskView/taskList?faces-redirect=true";
     }
