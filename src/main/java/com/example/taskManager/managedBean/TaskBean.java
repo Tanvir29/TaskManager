@@ -75,10 +75,9 @@ public class TaskBean implements Serializable{
         return "/app/taskView/taskList?faces-redirect=true";
     }
 
-    public String deleteTask(Long id){
-        taskService.deleteTask(id);
-        createNewTask();
-        
+    public String deleteTask(Task task){
+        taskService.deleteTask(task);
+        createNewTask();     
         return "/app/taskView/taskList?faces-redirect=true";
     }
     

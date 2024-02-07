@@ -7,11 +7,11 @@ package com.example.taskManager.service;
 
 import com.example.taskManager.model.Feedback;
 import com.example.taskManager.model.Task;
-import com.example.taskManager.model.User;
 import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import java.util.List;
 
 @Stateless
@@ -21,46 +21,42 @@ public class TaskService {
     private EntityManager entityManager;
 
 
-    @Transactional
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void createTask(Task task) {
         entityManager.persist(task);
     }
 
-    @Transactional
-    public void deleteTask(Long taskId) {
-        Task task = entityManager.find(Task.class, taskId);
-        if (task != null) {
-            List<User> assignees = task.getAssignees();        
-            if (assignees != null) {
-                for (User user : assignees) {
-                    user.getAssignedTasks().remove(task);
-                }
-            }
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void deleteTask(Task task) {
+        if (entityManager.contains(task)){
             entityManager.remove(task);
         }
+        else{
+            Task managedTask = getTasksById(task.getId());
+            if (managedTask != null){
+                entityManager.remove(managedTask);
+            }
+        }
     }
-    
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<Task> getAllTasks() {
         return entityManager.createQuery("SELECT t FROM Task t", Task.class).getResultList();
     }
-
+    
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public Task getTasksById(Long id) {
         return entityManager.find(Task.class, id);
     }
     
-    @Transactional
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateTask(Task taskToEdit) {
         entityManager.merge(taskToEdit); 
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void addFeedback(Long taskId, Feedback feedback) {
         Task task = entityManager.find(Task.class, taskId);
         task.setFeedback(feedback);
-        entityManager.merge(task);
-    }
-
-    public void addComment(Task task, String commentText) {
-        task.setComment(commentText);
         entityManager.merge(task);
     }
 }
