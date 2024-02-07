@@ -6,6 +6,7 @@ package com.example.taskManager.converter;
 
 import com.example.taskManager.model.Feedback;
 import com.example.taskManager.service.FeedbackService;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
@@ -17,16 +18,26 @@ import jakarta.inject.Inject;
  *
  * @author saurav
  */
+@FacesConverter(forClass = Feedback.class, managed = true)
+public class FeedbackConverter implements Converter<Feedback> {
 
-
-@FacesConverter(value = "feedbackConverter")
-public class FeedbackConverter implements Converter {
-    
     @Inject
     private FeedbackService feedbackService;
-    
+
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public String getAsString(FacesContext context, UIComponent component, Feedback feedback) {
+        if (feedback == null) {
+            return "";
+        }
+        if (feedback.getId() != null) {
+            return feedback.getId().toString();
+        } else {
+            throw new ConverterException(new FacesMessage("Invalid feedback ID"));
+        }
+    }
+
+    @Override
+    public Feedback getAsObject(FacesContext context, UIComponent component, String value) {
         if (value == null || value.isEmpty()) {
             return null;
         }
@@ -34,24 +45,12 @@ public class FeedbackConverter implements Converter {
         try {
             Long feedbackId = Long.valueOf(value);
             Feedback feedback = feedbackService.getFeedbackById(feedbackId);
-            if (feedback.getText() == null || feedback.getText().isEmpty()) {
-                throw new ConverterException("Feedback text cannot be empty.");
+            if (feedback == null) {
+                throw new ConverterException(new FacesMessage("Feedback not found with ID: " + value));
             }
-
             return feedback;
         } catch (NumberFormatException e) {
             throw new ConverterException("Invalid feedback ID format.", e);
         }
     }
-
-    @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value == null || !(value instanceof Feedback)) {
-            return null;
-        }
-
-        Feedback feedback = (Feedback) value;
-        return String.valueOf(feedback.getId());
-    }
 }
-
