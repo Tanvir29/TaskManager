@@ -10,6 +10,7 @@ package com.example.taskManager.managedBean;
  */
 
 import com.example.taskManager.model.Task;
+import com.example.taskManager.model.TaskStatus;
 import com.example.taskManager.service.TaskService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
@@ -39,6 +40,10 @@ public class TaskBean implements Serializable{
     public void init() {
         createNewTask();
         loadTaskList();
+    }
+    
+    public TaskStatus[] getTaskStatusValues() {
+        return TaskStatus.values();
     }
     
     public void createNewTask() {

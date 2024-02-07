@@ -5,6 +5,7 @@
 package com.example.taskManager.managedBean;
 
 import com.example.taskManager.model.User;
+import com.example.taskManager.model.UserRole;
 import com.example.taskManager.service.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
@@ -43,6 +44,10 @@ public class UserBean {
     public void init() {
         user = new User();
         loadAllUsers();
+    }
+    
+    public UserRole[] getUserRoleValues() {
+        return UserRole.values();
     }
 
     public void loadAllUsers() {

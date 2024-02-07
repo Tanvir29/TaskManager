@@ -21,7 +21,7 @@
 
         <h:outputLabel for="status" value="Status:" />
         <h:selectOneMenu id="status" value="#{taskBean.task.status}" required="true">
-            <f:selectItems value="#{taskStatusBean.taskStatusValues}" />
+            <f:selectItems value="#{taskBean.taskStatusValues}" />
         </h:selectOneMenu>
         <br/>
 
