@@ -7,6 +7,8 @@ package com.example.taskManager.service;
 import com.example.taskManager.model.Feedback;
 import com.example.taskManager.model.User;
 import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -29,7 +31,7 @@ public class FeedbackService {
     @Inject
     private TaskService taskService;
     
-    @Transactional
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void createFeedback(Long taskId,Feedback feedback) {
         feedback.setTimestamp(LocalDateTime.now());
         User commenter = userService.findAdmin();
@@ -38,17 +40,19 @@ public class FeedbackService {
         taskService.addFeedback(taskId,feedback);
     }
 
-    @Transactional
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteFeedback(Feedback feedback) {
         if (feedback != null) {
             entityManager.remove(feedback);
         }
     }
-
+    
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<Feedback> getAllFeedbacks() {
         return entityManager.createQuery("SELECT f FROM Feedback f", Feedback.class).getResultList();
     }
-
+    
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public Feedback getFeedbackById(Long id) {
         return entityManager.find(Feedback.class, id);
     }

@@ -11,6 +11,8 @@ package com.example.taskManager.service;
 import com.example.taskManager.model.User;
 import com.example.taskManager.model.UserRole;
 import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -27,27 +29,30 @@ public class UserService {
     @PersistenceContext
     private EntityManager entityManager;
     
-    @Transactional
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void saveUser(User user) {
         entityManager.persist(user);
     }
-
+    
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<User> findAllUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
-   
+    
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public User findUserById(long id) {
         return entityManager.find(User.class, id);
     }
     
-    @Transactional
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteUser(Long userId) {
         User user = entityManager.find(User.class, userId);
         if (user != null) {
             entityManager.remove(user);
         }
     }
-
+    
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public User findAdmin() {
         TypedQuery<User> query = entityManager.createQuery(
                 "SELECT u FROM User u WHERE u.role = :role", User.class);
