@@ -41,8 +41,9 @@
                         </li>
                     </ul>
                     <h:form>
-                        <h:commandButton value="Add Comment" class="btn btn-secondary"
-                                         action="#{taskBean.createCommentForm(task.id)}" />
+                        <h:link value="Add comment" class="btn btn-secondary" outcome = "addComment">
+                            <f:param name="id" value="#{task.id}" />
+                        </h:link>
                     </h:form>
                 </h:column>
                 

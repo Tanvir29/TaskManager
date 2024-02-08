@@ -78,13 +78,6 @@ public class TaskBean implements Serializable{
         createNewTask();     
         return "/app/taskView/taskList?faces-redirect=true";
     }
-    
-    public String createCommentForm(Long taskId){
-        task = taskService.getTaskById(taskId);
-
-        return "/app/taskView/addComment?faces-redirect=true";
-    }
-
 }
 
 
