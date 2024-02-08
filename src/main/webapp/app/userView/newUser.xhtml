@@ -6,35 +6,39 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="jakarta.faces.facelets">
 
-<h:head>
-    <title>Add New User</title>
-</h:head>
-    
-<h:body>
-    <h:form>
-        <h:outputLabel for="userName" value="User Name:" />
-        <h:inputText id="userName" value="#{userBean.user.name}" />
-        <br/>
-        <h:message for="userName" style="color: red;" />
-        <br/><br/>
-        
-        <h:outputLabel for="userPass" value="User Password:" />
-        <h:inputText id="userPass" value="#{userBean.user.password}" />
-        <br/>
-        <h:message for="userPass" style="color: red;" />
-        <br/><br/>
-        
-        <h:outputLabel for="userRole" value="User Role" />
-        <h:selectOneMenu id="userRole" value="#{userBean.user.role}" required="true">
-            <f:selectItems value="#{userBean.userRoleValues}" />
-        </h:selectOneMenu>
-        <br/>
-        <h:message for="userRole" style="color: red;" />
-        <br/><br/>
-        
-        <h:commandButton value="Create User" action="#{userBean.saveUser}" />
-        
-    </h:form>
-</h:body>
-    
+    <h:head>
+        <title>Add New User</title>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="../common/common.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:outputLabel for="userName" value="User Name:" />
+                    <h:inputText id="userName" value="#{userBean.user.name}" />
+                    <br/>
+                    <h:message for="userName" style="color: red;" />
+                    <br/><br/>
+
+                    <h:outputLabel for="userPass" value="User Password:" />
+                    <h:inputText id="userPass" value="#{userBean.user.password}" />
+                    <br/>
+                    <h:message for="userPass" style="color: red;" />
+                    <br/><br/>
+
+                    <h:outputLabel for="userRole" value="User Role" />
+                    <h:selectOneMenu id="userRole" value="#{userBean.user.role}" required="true">
+                        <f:selectItems value="#{userBean.userRoleValues}" />
+                    </h:selectOneMenu>
+                    <br/>
+                    <h:message for="userRole" style="color: red;" />
+                    <br/><br/>
+
+                    <h:commandButton value="Create User" action="#{userBean.saveUser}" />
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
 </html>

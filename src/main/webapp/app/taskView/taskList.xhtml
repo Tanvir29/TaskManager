@@ -12,25 +12,28 @@
     </h:head>
 
     <h:body>
-        <div class="container mt-4">
-            <h1 class="text-center mb-4">Task List Management</h1>
+        <ui:composition template="../common/common.xhtml">
+            <ui:define name="content">
+                <div class="container mt-4">
+                    <h1 class="text-center mb-4">Task List Management</h1>
 
-            <h:dataTable value="#{taskBean.loadTaskList()}" var="task" styleClass="table table-striped">
-                <h:column>
-                    <f:facet name="header">Task Name</f:facet>
-                        #{task.title}
-                </h:column>
+                    <h:dataTable value="#{taskBean.loadTaskList()}" var="task" styleClass="table table-striped">
+                        <h:column>
+                            <f:facet name="header">Task Name</f:facet>
+                                #{task.title}
+                        </h:column>
 
-                <h:column>
-                    <f:facet name="header">Description</f:facet>
-                        #{task.description}
-                </h:column>
+                        <h:column>
+                            <f:facet name="header">Description</f:facet>
+                                #{task.description}
+                        </h:column>
 
-                <h:column>
-                    <f:facet name="header">Progress Status</f:facet>
-                        #{task.status}
-                </h:column>
+                        <h:column>
+                            <f:facet name="header">Progress Status</f:facet>
+                                #{task.status}
+                        </h:column>
 
+<<<<<<< Updated upstream
                 <h:column>
                     <f:facet name="header">Assignees</f:facet>
                     <ul class="list-unstyled">
@@ -51,39 +54,65 @@
                     <f:facet name="header">Comment</f:facet>
                         #{task.comment}
                 </h:column>
+=======
+                        <h:column>
+                            <f:facet name="header">Assignees</f:facet>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <ui:repeat value="#{task.assignees}" var="assignee">
+                                        #{assignee.toString()} 
+                                    </ui:repeat>
+                                </li>
+                            </ul>
+                            <h:form>
+                                <h:commandButton value="Add Comment" class="btn btn-secondary"
+                                                 action="#{taskBean.createCommentForm(task.id)}" />
+                            </h:form>
+                        </h:column>
+>>>>>>> Stashed changes
 
-                <h:column>
-                    <f:facet name="header">Feedback</f:facet>
-                        #{task.feedback.text}
-                </h:column>
+                        <h:column>
+                            <f:facet name="header">Comment</f:facet>
+                                #{task.comment}
+                        </h:column>
 
-                <h:column>
-                    <h:form>
-                        <h:commandButton value="Feedback" class="btn btn-primary"
-                                         action="#{feedbackBean.createFeedbackForm(task.id)}"/>
-                    </h:form>
-                </h:column>
+                        <h:column>
+                            <f:facet name="header">Feedback</f:facet>
+                                #{task.feedback.text}
+                        </h:column>
 
+<<<<<<< Updated upstream
                 <h:column>
                     <h:link value="Edit" class="btn btn-secondary" outcome="editTask">
                         <f:param name="id" value="#{task.id}" />
                     </h:link>
                 </h:column>
+=======
+                        <h:column>
+                            <h:form>
+                                <h:commandButton value="Feedback" class="btn btn-primary"
+                                                 action="#{feedbackBean.createFeedbackForm(task.id)}"/>
+                            </h:form>
+                        </h:column>
+>>>>>>> Stashed changes
 
-                <h:column>
-                    <h:form>
-                        <h:commandButton value="Delete" class="btn btn-danger"
-                                         action="#{taskBean.deleteTask(task)}" />
-                    </h:form>
-                </h:column>
-            </h:dataTable>
-            
-            <h:form>
-                <h:commandButton value="Back to Home Page" class="btn btn-secondary"
-                                 action="/app/index.xhtml?faces-redirect=true" />
-            </h:form>
-            
-        </div>
+                        <h:column>
+                            <h:form>
+                                <h:commandButton value="Edit" class="btn btn-secondary"
+                                                 action="#{taskBean.findTask(task.id)}" />
+                            </h:form>
+                        </h:column>
+
+                        <h:column>
+                            <h:form>
+                                <h:commandButton value="Delete" class="btn btn-danger"
+                                                 action="#{taskBean.deleteTask(task)}" />
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 
