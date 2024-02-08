@@ -43,15 +43,11 @@ public class UserBean {
     @PostConstruct
     public void init() {
         user = new User();
-        loadAllUsers();
+        users = userService.findAllUsers();
     }
     
     public UserRole[] getUserRoleValues() {
         return UserRole.values();
-    }
-
-    public void loadAllUsers() {
-        users = userService.findAllUsers();
     }
     
     public String saveUser() {

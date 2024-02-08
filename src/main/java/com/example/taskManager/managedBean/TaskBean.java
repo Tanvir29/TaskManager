@@ -38,16 +38,12 @@ public class TaskBean implements Serializable{
 
     @PostConstruct
     public void init() {
-        createNewTask();
+        task = new Task();
         loadTaskList();
     }
     
     public TaskStatus[] getTaskStatusValues() {
         return TaskStatus.values();
-    }
-    
-    public void createNewTask() {
-        task = new Task();
     }
 
     public List<Task> loadTaskList() {
@@ -56,7 +52,6 @@ public class TaskBean implements Serializable{
     
     public String createTask() {
         taskService.createTask(task);
-        createNewTask();
 
         return "/app/taskView/taskList?faces-redirect=true";
     }
@@ -68,13 +63,13 @@ public class TaskBean implements Serializable{
     
     public String editTask() {
         taskService.updateTask(task);
-        createNewTask();
+
         return "/app/taskView/taskList?faces-redirect=true";
 }
 
     public String deleteTask(Task task){
         taskService.deleteTask(task);
-        createNewTask();
+
         return "/app/taskView/taskList?faces-redirect=true";
     }
 }
