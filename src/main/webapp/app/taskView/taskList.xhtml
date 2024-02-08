@@ -33,74 +33,39 @@
                                 #{task.status}
                         </h:column>
 
-<<<<<<< Updated upstream
-                <h:column>
-                    <f:facet name="header">Assignees</f:facet>
-                    <ul class="list-unstyled">
-                        <li>
-                            <ui:repeat value="#{task.assignees}" var="assignee">
-                                #{assignee.name} <br/> 
-                            </ui:repeat>
-                        </li>
-                    </ul>
-                    <h:form>
-                        <h:link value="Add comment" class="btn btn-secondary" outcome = "addComment">
-                            <f:param name="id" value="#{task.id}" />
-                        </h:link>
-                    </h:form>
-                </h:column>
-                
-                <h:column>
-                    <f:facet name="header">Comment</f:facet>
-                        #{task.comment}
-                </h:column>
-=======
+
                         <h:column>
                             <f:facet name="header">Assignees</f:facet>
                             <ul class="list-unstyled">
                                 <li>
                                     <ui:repeat value="#{task.assignees}" var="assignee">
-                                        #{assignee.toString()} 
+                                        #{assignee.name} <br/> 
                                     </ui:repeat>
                                 </li>
                             </ul>
                             <h:form>
-                                <h:commandButton value="Add Comment" class="btn btn-secondary"
-                                                 action="#{taskBean.createCommentForm(task.id)}" />
+                                <h:link value="Add comment" class="btn btn-secondary" outcome = "addComment">
+                                    <f:param name="id" value="#{task.id}" />
+                                </h:link>
                             </h:form>
                         </h:column>
->>>>>>> Stashed changes
 
                         <h:column>
                             <f:facet name="header">Comment</f:facet>
                                 #{task.comment}
                         </h:column>
 
+
+
                         <h:column>
                             <f:facet name="header">Feedback</f:facet>
                                 #{task.feedback.text}
                         </h:column>
 
-<<<<<<< Updated upstream
-                <h:column>
-                    <h:link value="Edit" class="btn btn-secondary" outcome="editTask">
-                        <f:param name="id" value="#{task.id}" />
-                    </h:link>
-                </h:column>
-=======
                         <h:column>
-                            <h:form>
-                                <h:commandButton value="Feedback" class="btn btn-primary"
-                                                 action="#{feedbackBean.createFeedbackForm(task.id)}"/>
-                            </h:form>
-                        </h:column>
->>>>>>> Stashed changes
-
-                        <h:column>
-                            <h:form>
-                                <h:commandButton value="Edit" class="btn btn-secondary"
-                                                 action="#{taskBean.findTask(task.id)}" />
-                            </h:form>
+                            <h:link value="Edit" class="btn btn-secondary" outcome="editTask">
+                                <f:param name="id" value="#{task.id}" />
+                            </h:link>
                         </h:column>
 
                         <h:column>
