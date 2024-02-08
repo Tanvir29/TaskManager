@@ -55,13 +55,20 @@
                                 #{task.comment}
                         </h:column>
 
-
+                        
 
                         <h:column>
                             <f:facet name="header">Feedback</f:facet>
                                 #{task.feedback.text}
                         </h:column>
-
+                        
+                        <h:column>
+                            <h:form>
+                                <h:commandButton value="Feedback" class="btn btn-primary"
+                                                 action="#{feedbackBean.createFeedbackForm(task.id)}" />
+                            </h:form>
+                        </h:column>
+                        
                         <h:column>
                             <h:link value="Edit" class="btn btn-secondary" outcome="editTask">
                                 <f:param name="id" value="#{task.id}" />
