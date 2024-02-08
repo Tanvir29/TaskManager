@@ -13,7 +13,6 @@ import com.example.taskManager.model.Task;
 import com.example.taskManager.model.TaskStatus;
 import com.example.taskManager.service.TaskService;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -71,7 +70,7 @@ public class TaskBean implements Serializable{
         taskService.updateTask(task);
         createNewTask();
         return "/app/taskView/taskList?faces-redirect=true";
-    }
+}
 
     public String deleteTask(Task task){
         taskService.deleteTask(task);

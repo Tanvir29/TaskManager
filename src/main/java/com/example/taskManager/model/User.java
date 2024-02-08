@@ -2,6 +2,7 @@
 package com.example.taskManager.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,7 +30,7 @@ public class User implements Serializable {
     
     private UserRole role;
     
-    @ManyToMany(mappedBy = "assignees")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "assignees")
     private List<Task> assignedTasks;
     
     public UserRole getRole() {

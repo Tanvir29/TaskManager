@@ -38,7 +38,7 @@ public class UserService {
     public List<User> findAllUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
-    
+        
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public User findUserById(long id) {
         return entityManager.find(User.class, id);
