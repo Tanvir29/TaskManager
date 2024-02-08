@@ -64,8 +64,8 @@ public class UserBean {
         return userService.findUserById(id);
     }
     
-    public String deleteUser(Long id){
-        userService.deleteUser(id);
+    public String deleteUser(User user){
+        userService.deleteUser(user);
         return "/app/userView/users?faces-redirect=true";
     }
 

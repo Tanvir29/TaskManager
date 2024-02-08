@@ -45,10 +45,15 @@ public class UserService {
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void deleteUser(Long userId) {
-        User user = entityManager.find(User.class, userId);
-        if (user != null) {
+    public void deleteUser(User user) {
+        if (entityManager.contains(user)){
             entityManager.remove(user);
+        }
+        else{
+            User managedUser = findUserById(user.getId());
+            if (managedUser != null){
+                entityManager.remove(managedUser);
+            }
         }
     }
     
