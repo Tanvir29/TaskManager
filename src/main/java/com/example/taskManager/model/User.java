@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -28,10 +29,23 @@ public class User implements Serializable {
     @NotBlank
     private String password;
     
+    @NotBlank
+    @NotNull
+    @Email
+    private String email;
+    
     private UserRole role;
     
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "assignees")
     private List<Task> assignedTasks;
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
     public UserRole getRole() {
         return role;

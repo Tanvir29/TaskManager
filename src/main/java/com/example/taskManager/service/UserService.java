@@ -67,5 +67,16 @@ public class UserService {
         
         return adminUser;
     }
+
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    public boolean isEmailExists(String email) {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(u) FROM User u WHERE u.email = :email", Long.class);
+        
+        query.setParameter("email", email);
+
+        Long count = query.getSingleResult();
+        return count > 0;
+    }
 }
 

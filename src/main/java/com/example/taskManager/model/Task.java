@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -30,9 +31,11 @@ public class Task implements Serializable {
     private Long id;
 
     @NotNull
+    @NotBlank
     private String title;
 
     @NotNull
+    @NotBlank
     private String description;
 
     @Enumerated(EnumType.STRING)

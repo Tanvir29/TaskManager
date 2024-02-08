@@ -17,16 +17,20 @@
                     <h:outputLabel for="taskName" value="Task Name:" />
                     <h:inputText id="taskName" value="#{taskBean.task.title}" />
                     <br/>
+                    <h:message for="taskName" style="color: red;" />
+                    <br/><br/>
 
                     <h:outputLabel for="description" value="Description:" />
                     <h:inputText id="description" value="#{taskBean.task.description}" />
                     <br/>
+                    <h:message for="description" style="color: red;" />
+                    <br/><br/>
 
                     <h:outputLabel for="status" value="Status:" />
                     <h:selectOneMenu id="status" value="#{taskBean.task.status}" required="true">
                         <f:selectItems value="#{taskBean.taskStatusValues}" />
                     </h:selectOneMenu>
-                    <br/>
+                    <br/><br/><br/>
 
                     <h:outputLabel for="assignees" value="Assignees:" />
                     <h:selectManyCheckbox id="assignees" value="#{taskBean.task.assignees}">

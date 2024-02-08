@@ -25,6 +25,12 @@
                     <br/>
                     <h:message for="userPass" style="color: red;" />
                     <br/><br/>
+                    
+                    <h:outputLabel for="userEmail" value="User Email:" />
+                    <h:inputText id="userEmail" value="#{userBean.user.email}" validator="uniqueEmailValidator" />
+                    <br/>
+                    <h:message for="userEmail" style="color: red;" />
+                    <br/><br/>
 
                     <h:outputLabel for="userRole" value="User Role" />
                     <h:selectOneMenu id="userRole" value="#{userBean.user.role}" required="true">
