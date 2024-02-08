@@ -56,9 +56,8 @@ public class TaskBean implements Serializable{
         return "/app/taskView/taskList?faces-redirect=true";
     }
     
-    public String findTask(Long id) {
+    public void findTask(Long id) {
         task = taskService.getTaskById(id);
-        return null;
     }
     
     public String editTask() {
