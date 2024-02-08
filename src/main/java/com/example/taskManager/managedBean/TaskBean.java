@@ -14,13 +14,14 @@ import com.example.taskManager.model.TaskStatus;
 import com.example.taskManager.service.TaskService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class TaskBean implements Serializable{
 
     @Inject
@@ -61,17 +62,14 @@ public class TaskBean implements Serializable{
         return "/app/taskView/taskList?faces-redirect=true";
     }
     
- 
     public String findTask(Long id) {
-        task = taskService.getTasksById(id);
-
-        return "/app/taskView/editTask.xhtml?faces-redirect=true";
+        task = taskService.getTaskById(id);
+        return null;
     }
     
     public String editTask() {
         taskService.updateTask(task);
         createNewTask();
-
         return "/app/taskView/taskList?faces-redirect=true";
     }
 
@@ -82,7 +80,7 @@ public class TaskBean implements Serializable{
     }
     
     public String createCommentForm(Long taskId){
-        task = taskService.getTasksById(taskId);
+        task = taskService.getTaskById(taskId);
 
         return "/app/taskView/addComment?faces-redirect=true";
     }

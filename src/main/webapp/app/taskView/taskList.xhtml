@@ -64,10 +64,9 @@
                 </h:column>
 
                 <h:column>
-                    <h:form>
-                        <h:commandButton value="Edit" class="btn btn-secondary"
-                                         action="#{taskBean.findTask(task.id)}" />
-                    </h:form>
+                    <h:link value="Edit" class="btn btn-secondary" outcome="editTask">
+                        <f:param name="id" value="#{task.id}" />
+                    </h:link>
                 </h:column>
 
                 <h:column>

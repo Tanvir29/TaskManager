@@ -32,7 +32,7 @@ public class TaskService {
             entityManager.remove(task);
         }
         else{
-            Task managedTask = getTasksById(task.getId());
+            Task managedTask = getTaskById(task.getId());
             if (managedTask != null){
                 entityManager.remove(managedTask);
             }
@@ -44,13 +44,13 @@ public class TaskService {
     }
     
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    public Task getTasksById(Long id) {
+    public Task getTaskById(Long id) {
         return entityManager.find(Task.class, id);
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void updateTask(Task taskToEdit) {
-        entityManager.merge(taskToEdit); 
+    public void updateTask(Task task) {
+        entityManager.merge(task); 
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
