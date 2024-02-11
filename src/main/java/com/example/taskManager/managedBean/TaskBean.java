@@ -18,6 +18,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Named
@@ -28,6 +29,36 @@ public class TaskBean implements Serializable{
     private TaskService taskService;
     
     private Task task;
+    
+    private List<Task> filteredTaskList;
+    
+    private String statusFilter;
+    private String priorityFilter;
+    private LocalDate dueDateFilter;
+
+    public LocalDate getDueDateFilter() {
+        return dueDateFilter;
+    }
+
+    public void setDueDateFilter(LocalDate dueDateFilter) {
+        this.dueDateFilter = dueDateFilter;
+    }
+
+    public String getStatusFilter() {
+        return statusFilter;
+    }
+
+    public void setStatusFilter(String statusFilter) {
+        this.statusFilter = statusFilter;
+    }
+
+    public String getPriorityFilter() {
+        return priorityFilter;
+    }
+
+    public void setPriorityFilter(String priorityFilter) {
+        this.priorityFilter = priorityFilter;
+    }
 
     public Task getTask() {
         return task;
@@ -36,11 +67,19 @@ public class TaskBean implements Serializable{
     public void setTask(Task task) {
         this.task = task;
     }
+    
+    public List<Task> getFilteredTaskList() {
+        return filteredTaskList;
+    }
+
+    public void setFilteredTaskList(List<Task> filteredTaskList) {
+        this.filteredTaskList = filteredTaskList;
+    }
 
     @PostConstruct
     public void init() {
         task = new Task();
-        loadTaskList();
+        filteredTaskList = loadTaskList();
     }
     
     public TaskStatus[] getTaskStatusValues() {
@@ -75,6 +114,11 @@ public class TaskBean implements Serializable{
         taskService.deleteTask(task);
 
         return "/app/taskView/taskList?faces-redirect=true";
+    }
+    
+    public void filterTasks() {
+        filteredTaskList.clear();
+        filteredTaskList = taskService.filterTasks(statusFilter, priorityFilter, dueDateFilter);
     }
 }
 

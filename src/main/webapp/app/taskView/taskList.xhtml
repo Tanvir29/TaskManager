@@ -16,7 +16,37 @@
             <ui:define name="content">
                 <div class="container mt-4">
                     <h1 class="text-center mb-4">Task List Management</h1>
-                    <h:dataTable value="#{taskBean.loadTaskList()}" var="task" styleClass="table table-striped">
+                    
+                    <h:form>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <h:outputLabel for="status" value="Filter by Status:" />
+                                <h:selectOneMenu id="status" value="#{taskBean.statusFilter}" required="true">
+                                    <f:selectItem itemValue="Blank" />
+                                    <f:selectItems value="#{taskBean.taskStatusValues}" />
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="col-md-4">
+                                <h:outputLabel for="priority" value="Filter by Priority:" />
+                                <h:selectOneMenu id="priority" value="#{taskBean.priorityFilter}" required="true">
+                                    <f:selectItem itemValue="Blank" />
+                                    <f:selectItems value="#{taskBean.taskPriorityValues}" />
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="col-md-4">
+                                <h:outputLabel for="dueDate" value="Filter by Due Date:" />
+                                <h:inputText id="dueDate" type="date" value="#{taskBean.dueDateFilter}" />
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <h:commandButton value="Filter" action="#{taskBean.filterTasks}" class="btn btn-primary" >
+                                <f:ajax execute="@form" render="taskTable" />
+                            </h:commandButton>
+                        </div>
+                    </h:form>
+                    
+                    
+                    <h:dataTable id="taskTable" value="#{taskBean.filteredTaskList}" var="task" styleClass="table table-striped">
                         <h:column>
                             <f:facet name="header">Task Name</f:facet>
                                 #{task.title}

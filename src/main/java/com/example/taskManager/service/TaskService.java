@@ -7,11 +7,15 @@ package com.example.taskManager.service;
 
 import com.example.taskManager.model.Feedback;
 import com.example.taskManager.model.Task;
+import com.example.taskManager.model.TaskPriority;
+import com.example.taskManager.model.TaskStatus;
 import jakarta.ejb.Stateless;
 import jakarta.ejb.TransactionAttribute;
 import jakarta.ejb.TransactionAttributeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.List;
 
 @Stateless
@@ -58,6 +62,35 @@ public class TaskService {
         Task task = entityManager.find(Task.class, taskId);
         task.setFeedback(feedback);
         entityManager.merge(task);
+    }
+
+    public List<Task> filterTasks(String statusFilter, String priorityFilter, LocalDate dueDateFilter) {
+        String queryString = "SELECT t FROM Task t WHERE 1=1";
+        if (!"Blank".equals(statusFilter)) {
+            queryString += " AND t.status = :statusFilter";
+        }
+        if (!"Blank".equals(priorityFilter)) {
+            queryString += " AND t.priority = :priorityFilter";
+        }
+        if (dueDateFilter != null) {
+            queryString += " AND t.dueDate < :dueDateFilter";
+        }
+        
+        TypedQuery<Task> query = entityManager.createQuery(queryString, Task.class);
+        
+        if (!"Blank".equals(statusFilter)) {
+            query.setParameter("statusFilter", TaskStatus.valueOf(statusFilter));
+        }
+        if (!"Blank".equals(priorityFilter)) {
+            query.setParameter("priorityFilter", TaskPriority.valueOf(priorityFilter));
+        }
+        if (dueDateFilter != null) {
+            query.setParameter("dueDateFilter", dueDateFilter);
+        }
+        
+        List<Task> tasks = query.getResultList();
+        
+        return tasks;
     }
 }
 
