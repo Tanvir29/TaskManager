@@ -13,9 +13,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,6 +43,15 @@ public class Task implements Serializable {
     @Enumerated(EnumType.STRING)
     @NotNull
     private TaskStatus status;
+    
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private TaskPriority priority;
+    
+    private LocalDate assignDate;
+    
+    @NotNull
+    private LocalDate dueDate;
 
     @OneToOne
     private Feedback feedback;
@@ -49,6 +60,12 @@ public class Task implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<User> assignees;
+    
+    
+    @PrePersist
+    public void prePersist() {
+        assignDate = LocalDate.now();
+    }
 
     public Long getId() {
         return id;
@@ -80,6 +97,30 @@ public class Task implements Serializable {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+    
+    public TaskPriority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(TaskPriority priority) {
+        this.priority = priority;
+    }
+    
+    public LocalDate getAssignDate() {
+        return assignDate;
+    }
+
+    public void setAssignDate(LocalDate assignDate) {
+        this.assignDate = assignDate;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 
     public Feedback getFeedback() {
@@ -146,7 +187,15 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "Task{" + "id=" + id + ", title=" + title + ", description=" + description + ", status=" + status + '}';
+        return "Task{" + "id=" + id + 
+                ", title=" + title + 
+                ", description=" + description + 
+                ", status=" + status + 
+                ", priority=" + priority + 
+                ", assign date=" + assignDate + 
+                ", due date=" + dueDate + 
+                ", priority=" + priority + 
+                '}';
     }
 
 }

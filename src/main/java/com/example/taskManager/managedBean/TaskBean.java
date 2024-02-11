@@ -10,6 +10,7 @@ package com.example.taskManager.managedBean;
  */
 
 import com.example.taskManager.model.Task;
+import com.example.taskManager.model.TaskPriority;
 import com.example.taskManager.model.TaskStatus;
 import com.example.taskManager.service.TaskService;
 import jakarta.annotation.PostConstruct;
@@ -44,6 +45,10 @@ public class TaskBean implements Serializable{
     
     public TaskStatus[] getTaskStatusValues() {
         return TaskStatus.values();
+    }
+    
+    public TaskPriority[] getTaskPriorityValues() {
+        return TaskPriority.values();
     }
 
     public List<Task> loadTaskList() {

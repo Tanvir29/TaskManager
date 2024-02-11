@@ -25,10 +25,22 @@
                     <br/>
                     <h:message for="description" style="color: red;" />
                     <br/><br/>
+                    
+                    <h:outputLabel for="dueDate" value="Due Date:" />
+                    <h:inputText id="dueDate" type="date" value="#{taskBean.task.dueDate}" />
+                    <br/>
+                    <h:message for="dueDate" style="color: red;" />
+                    <br/><br/>
 
                     <h:outputLabel for="status" value="Status:" />
                     <h:selectOneMenu id="status" value="#{taskBean.task.status}" required="true">
                         <f:selectItems value="#{taskBean.taskStatusValues}" />
+                    </h:selectOneMenu>
+                    <br/><br/>
+                    
+                    <h:outputLabel for="priority" value="Priority:" />
+                    <h:selectOneMenu id="priority" value="#{taskBean.task.priority}" required="true">
+                        <f:selectItems value="#{taskBean.taskPriorityValues}" />
                     </h:selectOneMenu>
                     <br/><br/><br/>
 
