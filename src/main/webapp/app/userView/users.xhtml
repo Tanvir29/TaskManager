@@ -46,7 +46,7 @@
                             </h:column>
                             <h:column>
                                 <f:facet name="header">Task List</f:facet>
-                                <h:dataTable value="#{user.assignedTasks}" var="task">
+                                <h:dataTable value="#{userBean.showCurrentTasks(user)}" var="task">
                                     <h:column>
                                         <f:facet name="header">Task Name</f:facet>
                                         <h:outputText value="#{task.description}" />
@@ -59,6 +59,12 @@
                                     <h:commandButton value="Delete" class="btn btn-danger" action="#{userBean.deleteUser(user)}" />
                                 </h:form>    
                   
+                            </h:column>
+                            <h:column>                               
+                             
+                                    <h:link value="History" class="btn btn-secondary" outcome= "userTaskList">
+                                    <f:param name="id" value="#{user.id}" />
+                                    </h:link>
                             </h:column>
                         </h:dataTable>
                     </div>

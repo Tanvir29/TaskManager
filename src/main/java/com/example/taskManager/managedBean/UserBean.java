@@ -4,18 +4,21 @@
  */
 package com.example.taskManager.managedBean;
 
+import com.example.taskManager.model.Task;
 import com.example.taskManager.model.User;
 import com.example.taskManager.model.UserRole;
 import com.example.taskManager.service.UserService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
 @Named
-@RequestScoped
-public class UserBean {
+@ViewScoped
+public class UserBean implements Serializable{
     
     @Inject
     private UserService userService;
@@ -55,7 +58,7 @@ public class UserBean {
         
         return "/app/userView/users?faces-redirect=true";
     }
-
+    
     public User findUserById(long id) {
         return userService.findUserById(id);
     }
@@ -63,6 +66,14 @@ public class UserBean {
     public String deleteUser(User user){
         userService.deleteUser(user);
         return "/app/userView/users?faces-redirect=true";
+    }
+    
+    public List<Task> showTaskHistory(User user){
+        return userService.findUserTasks(user,true);
+    }
+    
+    public List<Task> showCurrentTasks(User user){
+        return userService.findUserTasks(user,false);
     }
 
 }
