@@ -16,7 +16,6 @@
             <ui:define name="content">
                 <div class="container mt-4">
                     <h1 class="text-center mb-4">Task List Management</h1>
-
                     <h:dataTable value="#{taskBean.loadTaskList()}" var="task" styleClass="table table-striped">
                         <h:column>
                             <f:facet name="header">Task Name</f:facet>
@@ -43,11 +42,9 @@
                                     </ui:repeat>
                                 </li>
                             </ul>
-                            <h:form>
-                                <h:link value="Add comment" class="btn btn-secondary" outcome = "addComment">
-                                    <f:param name="id" value="#{task.id}" />
-                                </h:link>
-                            </h:form>
+                            <h:link value="Add comment" class="btn btn-secondary" outcome = "addComment">
+                                <f:param name="id" value="#{task.id}" />
+                            </h:link>
                         </h:column>
 
                         <h:column>
@@ -63,10 +60,9 @@
                         </h:column>
                         
                         <h:column>
-                            <h:form>
-                                <h:commandButton value="Feedback" class="btn btn-primary"
-                                                 action="#{feedbackBean.createFeedbackForm(task.id)}" />
-                            </h:form>
+                            <h:link value="Feedback" class="btn btn-primary" outcome = "/app/feedback/feedbackCreate">
+                                <f:param name="id" value="#{task.id}" />
+                            </h:link>
                         </h:column>
                         
                         <h:column>
