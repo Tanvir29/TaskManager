@@ -64,6 +64,7 @@ public class TaskService {
         entityManager.merge(task);
     }
 
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<Task> filterTasks(String statusFilter, String priorityFilter, LocalDate dueDateFilter) {
         String queryString = "SELECT t FROM Task t WHERE 1=1";
         if (!"Blank".equals(statusFilter)) {

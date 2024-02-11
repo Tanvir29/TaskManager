@@ -32,7 +32,7 @@ public class LocalDateConverter implements Converter<LocalDate> {
         try {
             return LocalDate.parse(value, FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ConverterException(new FacesMessage("Invalid date format. Please use MM/dd/yyyy."));
+            throw new ConverterException(new FacesMessage("Invalid date format. Please use yyyy-MM-dd."));
         }
     }
 

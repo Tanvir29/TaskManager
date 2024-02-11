@@ -9,7 +9,6 @@ import com.example.taskManager.model.User;
 import com.example.taskManager.model.UserRole;
 import com.example.taskManager.service.UserService;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
