@@ -194,7 +194,6 @@ public class Task implements Serializable {
                 ", priority=" + priority + 
                 ", assign date=" + assignDate + 
                 ", due date=" + dueDate + 
-                ", priority=" + priority + 
                 '}';
     }
 

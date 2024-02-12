@@ -17,9 +17,10 @@ import jakarta.mail.*;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import java.util.List;
 public class EmailSender implements Serializable{
 
-    public void sendEmail(String recipientEmail, String subject, String body)
+    public void sendEmail(String recipientEmailList, String subject, String body)
             throws IOException, AddressException, MessagingException {
         Properties properties = new Properties();
         try (InputStream input = getClass().getClassLoader().getResourceAsStream("mail.properties")) {
@@ -29,8 +30,7 @@ public class EmailSender implements Serializable{
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(
-                        
+                return new PasswordAuthentication(            
                         properties.getProperty("mail.smtp.username"),
                         properties.getProperty("mail.smtp.password"));
             }
@@ -39,7 +39,7 @@ public class EmailSender implements Serializable{
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(properties.getProperty("mail.smtp.username")));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmailList));
             message.setSubject(subject);
             message.setText(body);
 

@@ -5,17 +5,23 @@ package com.example.taskManager.service;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
+import com.example.taskManager.mailService.EmailSender;
 import com.example.taskManager.model.Feedback;
 import com.example.taskManager.model.Task;
 import com.example.taskManager.model.TaskPriority;
 import com.example.taskManager.model.TaskStatus;
+import com.example.taskManager.model.User;
 import jakarta.ejb.Stateless;
 import jakarta.ejb.TransactionAttribute;
 import jakarta.ejb.TransactionAttributeType;
+import jakarta.inject.Inject;
+import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -23,15 +29,31 @@ public class TaskService {
 
     @PersistenceContext
     private EntityManager entityManager;
-
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void createTask(Task task) {
-        entityManager.persist(task);
+    
+    @Inject
+    private EmailSender emailSender;
+    
+    public void notifyUsers(Task task, List<User> users, String subject, String body) 
+            throws MessagingException, IOException{
+        List<String> recipientEmailLists = new ArrayList<>();
+        for (User user: users){
+         recipientEmailLists.add(user.getEmail());
+         }
+        String addressList = String.join(",", recipientEmailLists);
+        emailSender.sendEmail(addressList, subject, body);
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void deleteTask(Task task) {
+    public void createTask(Task task, List<User> users) throws MessagingException, IOException {
+        entityManager.persist(task);
+        String mailSubject = "New Task Assigned";
+        String mailBody =  "You have been assigned a new task: " + task;
+        notifyUsers(task, users, mailSubject, mailBody);
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void deleteTask(Task task) throws MessagingException, IOException {
+        
         if (entityManager.contains(task)){
             entityManager.remove(task);
         }
@@ -41,7 +63,12 @@ public class TaskService {
                 entityManager.remove(managedTask);
             }
         }
+        List<User> users = task.getAssignees();
+        String mailSubject = "Task Removed";
+        String mailBody =  "This task has been deleted from your taskList : " + task;
+        notifyUsers(task, users, mailSubject, mailBody);
     }
+    
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<Task> getAllTasks() {
         return entityManager.createQuery("SELECT t FROM Task t", Task.class).getResultList();
@@ -53,7 +80,37 @@ public class TaskService {
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void updateTask(Task task) {
+    public void updateTask(Task task) throws MessagingException, IOException {
+        Task originalTask = getTaskById(task.getId());
+        List<User> originalAssignees = originalTask.getAssignees();
+        List<User> updatedAssignees = task.getAssignees();
+        
+        List<User> addedAssignees = new ArrayList<>(updatedAssignees);
+        addedAssignees.removeAll(originalAssignees);
+        
+        if (!addedAssignees.isEmpty()){
+            String mailSubject = "New Task Assigned";
+            String mailBody =  "You have been assigned to an existing task: " + task;
+            notifyUsers(task, addedAssignees, mailSubject, mailBody);
+        }
+        
+        List<User> removedAssignees = new ArrayList<>(originalAssignees);
+        removedAssignees.removeAll(updatedAssignees);
+        
+        if (!removedAssignees.isEmpty()){
+            String mailSubject = "Task Removed";
+            String mailBody =  "This task has been removed from your plate: " + task;
+            notifyUsers(task, removedAssignees, mailSubject, mailBody);
+        }
+        
+        List<User> sameAssignees = new ArrayList<>(updatedAssignees);
+        sameAssignees.retainAll(originalAssignees);
+        
+        if (!sameAssignees.isEmpty()){
+            String mailSubject = "Task Updated Notification";
+            String mailBody =  "This task has been modified: " + task;
+            notifyUsers(task, sameAssignees, mailSubject, mailBody);
+        }
         entityManager.merge(task); 
     }
 

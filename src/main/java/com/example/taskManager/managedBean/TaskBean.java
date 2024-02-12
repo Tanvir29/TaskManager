@@ -9,7 +9,6 @@ package com.example.taskManager.managedBean;
  * @author hasan
  */
 
-import com.example.taskManager.mailService.EmailSender;
 import com.example.taskManager.model.Task;
 import com.example.taskManager.model.TaskPriority;
 import com.example.taskManager.model.TaskStatus;
@@ -31,8 +30,6 @@ public class TaskBean implements Serializable{
 
     @Inject
     private TaskService taskService;
-    @Inject
-    private EmailSender emailSender;
     
     private Task task;
     
@@ -100,20 +97,9 @@ public class TaskBean implements Serializable{
         return taskService.getAllTasks();
     }
     
-    public String createTask(List<User> users) throws MessagingException {
-        taskService.createTask(task);
-        System.out.println("Task details: " + task);
-        for (User user: users){
-            String recipientEmail = user.getEmail();
-            String subject = "New Task Assigned";
-            String body = "You have been assigned a new task: " + task;
-
-            try {
-                emailSender.sendEmail(recipientEmail, subject, body);
-            } catch (IOException e) {
-                
-            }
-        }
+    public String createTask(List<User> users) throws MessagingException, IOException{
+        taskService.createTask(task, users);
+     
         return "/app/taskView/taskList?faces-redirect=true";
     }
     
@@ -121,17 +107,17 @@ public class TaskBean implements Serializable{
         task = taskService.getTaskById(id);
     }
     
-    public String editTask() {
+    public String editTask() throws MessagingException, IOException {
         taskService.updateTask(task);
-
-        return "/app/taskView/taskList?faces-redirect=true";
-}
-
-    public String deleteTask(Task task){
-        taskService.deleteTask(task);
-
         return "/app/taskView/taskList?faces-redirect=true";
     }
+
+    public String deleteTask(Task task) throws MessagingException, IOException{
+        taskService.deleteTask(task);
+        return "/app/taskView/taskList?faces-redirect=true";
+    }
+    
+    
     
     public void filterTasks() {
         filteredTaskList.clear();
