@@ -83,11 +83,11 @@ public class TaskService {
     public void updateTask(Task task) throws MessagingException, IOException {
         Task originalTask = getTaskById(task.getId());
         List<User> originalAssignees = originalTask.getAssignees();
-        List<User> updatedAssignees = task.getAssignees();
+        entityManager.merge(task);
         
+        List<User> updatedAssignees = task.getAssignees();
         List<User> addedAssignees = new ArrayList<>(updatedAssignees);
         addedAssignees.removeAll(originalAssignees);
-        
         if (!addedAssignees.isEmpty()){
             String mailSubject = "New Task Assigned";
             String mailBody =  "You have been assigned to an existing task: " + task;
@@ -96,7 +96,6 @@ public class TaskService {
         
         List<User> removedAssignees = new ArrayList<>(originalAssignees);
         removedAssignees.removeAll(updatedAssignees);
-        
         if (!removedAssignees.isEmpty()){
             String mailSubject = "Task Removed";
             String mailBody =  "This task has been removed from your plate: " + task;
@@ -105,13 +104,11 @@ public class TaskService {
         
         List<User> sameAssignees = new ArrayList<>(updatedAssignees);
         sameAssignees.retainAll(originalAssignees);
-        
         if (!sameAssignees.isEmpty()){
             String mailSubject = "Task Updated Notification";
             String mailBody =  "This task has been modified: " + task;
             notifyUsers(task, sameAssignees, mailSubject, mailBody);
-        }
-        entityManager.merge(task); 
+        } 
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)

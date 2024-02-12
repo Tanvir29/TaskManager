@@ -17,7 +17,6 @@ import jakarta.mail.*;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import java.util.List;
 public class EmailSender implements Serializable{
 
     public void sendEmail(String recipientEmailList, String subject, String body)
