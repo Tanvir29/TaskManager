@@ -53,7 +53,7 @@
                     </h:selectManyCheckbox>
                     <br/>
 
-                    <h:commandButton value="Create Task" action="#{taskBean.createTask}"/>
+                    <h:commandButton value="Create Task" action="#{taskBean.createTask(taskBean.task.assignees)}"/>
 
                 </h:form>
             </ui:define>
