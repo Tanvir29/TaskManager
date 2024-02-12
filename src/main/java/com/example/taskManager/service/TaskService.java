@@ -67,10 +67,10 @@ public class TaskService {
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<Task> filterTasks(String statusFilter, String priorityFilter, LocalDate dueDateFilter) {
         String queryString = "SELECT t FROM Task t WHERE 1=1";
-        if (!"Blank".equals(statusFilter)) {
+        if (!"--None--".equals(statusFilter)) {
             queryString += " AND t.status = :statusFilter";
         }
-        if (!"Blank".equals(priorityFilter)) {
+        if (!"--None--".equals(priorityFilter)) {
             queryString += " AND t.priority = :priorityFilter";
         }
         if (dueDateFilter != null) {
@@ -79,10 +79,10 @@ public class TaskService {
         
         TypedQuery<Task> query = entityManager.createQuery(queryString, Task.class);
         
-        if (!"Blank".equals(statusFilter)) {
+        if (!"--None--".equals(statusFilter)) {
             query.setParameter("statusFilter", TaskStatus.valueOf(statusFilter));
         }
-        if (!"Blank".equals(priorityFilter)) {
+        if (!"--None--".equals(priorityFilter)) {
             query.setParameter("priorityFilter", TaskPriority.valueOf(priorityFilter));
         }
         if (dueDateFilter != null) {

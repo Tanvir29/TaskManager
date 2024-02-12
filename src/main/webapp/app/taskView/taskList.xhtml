@@ -22,14 +22,14 @@
                             <div class="col-md-4">
                                 <h:outputLabel for="status" value="Filter by Status:" />
                                 <h:selectOneMenu id="status" value="#{taskBean.statusFilter}" required="true">
-                                    <f:selectItem itemValue="Blank" />
+                                    <f:selectItem itemValue="--None--" />
                                     <f:selectItems value="#{taskBean.taskStatusValues}" />
                                 </h:selectOneMenu>
                             </div>
                             <div class="col-md-4">
                                 <h:outputLabel for="priority" value="Filter by Priority:" />
                                 <h:selectOneMenu id="priority" value="#{taskBean.priorityFilter}" required="true">
-                                    <f:selectItem itemValue="Blank" />
+                                    <f:selectItem itemValue="--None--" />
                                     <f:selectItems value="#{taskBean.taskPriorityValues}" />
                                 </h:selectOneMenu>
                             </div>
