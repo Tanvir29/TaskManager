@@ -82,7 +82,6 @@ public class TaskBean implements Serializable{
     @PostConstruct
     public void init() {
         task = new Task();
-        filteredTaskList = loadTaskList();
     }
     
     public TaskStatus[] getTaskStatusValues() {
@@ -116,12 +115,9 @@ public class TaskBean implements Serializable{
         taskService.deleteTask(task);
         return "/app/taskView/taskList?faces-redirect=true";
     }
-    
-    
-    
-    public void filterTasks() {
-        filteredTaskList.clear();
-        filteredTaskList = taskService.filterTasks(statusFilter, priorityFilter, dueDateFilter);
+      
+    public List<Task> filterTasks() {
+        return taskService.filterTasks(statusFilter, priorityFilter, dueDateFilter);
     }
 }
 

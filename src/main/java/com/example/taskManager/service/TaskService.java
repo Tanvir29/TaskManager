@@ -125,31 +125,40 @@ public class TaskService {
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<Task> filterTasks(String statusFilter, String priorityFilter, LocalDate dueDateFilter) {
         String queryString = "SELECT t FROM Task t WHERE 1=1";
-        if (!"--None--".equals(statusFilter)) {
+
+        if (isValidFilter(statusFilter)) {
             queryString += " AND t.status = :statusFilter";
         }
-        if (!"--None--".equals(priorityFilter)) {
+        if (isValidFilter(priorityFilter)) {
             queryString += " AND t.priority = :priorityFilter";
         }
         if (dueDateFilter != null) {
-            queryString += " AND t.dueDate < :dueDateFilter";
+            queryString += " AND t.dueDate <= :dueDateFilter";
         }
         
         TypedQuery<Task> query = entityManager.createQuery(queryString, Task.class);
-        
-        if (!"--None--".equals(statusFilter)) {
+        if (isValidFilter(statusFilter)) {
             query.setParameter("statusFilter", TaskStatus.valueOf(statusFilter));
         }
-        if (!"--None--".equals(priorityFilter)) {
+        if (isValidFilter(priorityFilter)) {
             query.setParameter("priorityFilter", TaskPriority.valueOf(priorityFilter));
         }
         if (dueDateFilter != null) {
             query.setParameter("dueDateFilter", dueDateFilter);
         }
         
+        if (isValidFilter(statusFilter) && isValidFilter(priorityFilter)
+                && dueDateFilter == null){
+            return getAllTasks();
+        }
+        
         List<Task> tasks = query.getResultList();
         
         return tasks;
+    }
+    
+    public boolean isValidFilter(String filter){
+        return filter != null && !filter.equals("--None--");
     }
 }
 
