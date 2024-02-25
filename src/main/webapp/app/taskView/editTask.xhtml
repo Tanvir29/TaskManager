@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="jakarta.faces.facelets">
     <f:metadata>
-        <f:viewParam name="id" value="#{taskBean.task.id}" />
+        <f:viewParam name="id" value="#{taskBean.task.id}" required="true"/>
         <f:viewAction action="#{taskBean.findTask(taskBean.task.id)}"/>
     </f:metadata>
     <h:head>

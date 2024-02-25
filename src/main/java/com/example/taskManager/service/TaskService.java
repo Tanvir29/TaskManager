@@ -76,8 +76,12 @@ public class TaskService {
     
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public Task getTaskById(Long id) {
-        return entityManager.find(Task.class, id);
+    if (id == null) {
+        throw new IllegalArgumentException("ID cannot be null");
     }
+    return entityManager.find(Task.class, id);
+}
+
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updateTask(Task task) throws MessagingException, IOException {
