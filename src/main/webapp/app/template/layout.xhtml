@@ -1,10 +1,11 @@
-<?xml version='1.0' encoding='UTF-8' ?> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-
-    <h:head>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="jakarta.faces.facelets"    
+      xmlns:h="jakarta.faces.html">
+        <h:head>
+                <title>#{title}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet library="webjars" name="bootstrap/5.2.3/css/bootstrap.min.css"/>
         <h:outputScript library="webjars" name="bootstrap/5.2.3/js/bootstrap.bundle.min.js"/>
@@ -22,11 +23,13 @@
             }
 
             .container {
+                width:100%;
                 padding-top: 20px;
             }
 
             .navbar {
-                background-color: #343a40;
+                width:100%;
+                background-color: #6D0C6D;
                 border-bottom: 2px solid #dcdcdc;
             }
 
@@ -106,43 +109,39 @@
                 color: #ffffff;
                 border: 1px solid #007bff;
             }
+            .footer {
+                width: 100%;
+                background-color: #333;
+                color: white; 
+            }
+
+            .footer-link {
+                color: #ffffff;
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .footer-link:hover {
+                color: #b8daff;
+            }
+
+            .container-fluid {
+                width: 100%;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
         </style>
-    </h:head>
-
-    <h:body>
-        <div class="container-fluid">
-            <div id="top" class="top">
-                <ui:insert name="top">
-                    <nav class="navbar navbar-expand-lg navbar-dark">
-                        <div class="container">
-                            <a class="navbar-brand" href="#">Task Manager</a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarNav">
-                                <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item active">
-                                        <h:link outcome="/app/index.xhtml?faces-redirect=true" value="Home" styleClass="nav-link" />
-                                    </li>
-                                    <li class="nav-item">
-                                        <h:link outcome="/app/index.xhtml?faces-redirect=true" value="about" styleClass="nav-link" />
-                                    </li>
-                                    <li class="nav-item">
-                                        <h:link outcome="/app/index.xhtml?faces-redirect=true" value="login" styleClass="nav-link" />
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-
-                </ui:insert>
-            </div>
-        </div>
-
-        <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
-
-    </h:body>
-
+            </h:head>
+        <h:body>
+                <header>
+                        <ui:include src="header.xhtml" />
+                    </header>
+                <main>
+                        <ui:insert name="content" />
+                    </main>
+                <footer>
+                        <ui:include src="footer.xhtml" />
+                    </footer>
+            </h:body>
 </html>

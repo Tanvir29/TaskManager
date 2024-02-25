@@ -1,0 +1,30 @@
+<ui:composition xmlns:h="jakarta.faces.html" xmlns:ui="jakarta.faces.facelets">
+
+    <div class="container-fluid">
+        <div id="top" class="top">
+            <ui:insert name="top">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <div class="container">
+                        <a class="navbar-brand" href="#">Task Manager</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"/>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item active">
+                                    <h:link outcome="/app/index.xhtml?faces-redirect=true" value="Home" styleClass="nav-link"/>
+                                </li>
+                                <li class="nav-item">
+                                    <h:link outcome="/app/index.xhtml?faces-redirect=true" value="about" styleClass="nav-link"/>
+                                </li>
+                                <li class="nav-item">
+                                    <h:link outcome="/app/index.xhtml?faces-redirect=true" value="login" styleClass="nav-link"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </ui:insert>
+        </div>
+    </div>
+</ui:composition>
