@@ -124,8 +124,12 @@ public class TaskService {
 
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<Task> filterTasks(String statusFilter, String priorityFilter, LocalDate dueDateFilter) {
-        String queryString = "SELECT t FROM Task t WHERE 1=1";
-
+        if (!isValidFilter(statusFilter) && !isValidFilter(priorityFilter)
+                && dueDateFilter == null){
+            return getAllTasks();
+        }
+        
+        String queryString = "SELECT t FROM Task t WHERE 1=1";    
         if (isValidFilter(statusFilter)) {
             queryString += " AND t.status = :statusFilter";
         }
@@ -145,11 +149,6 @@ public class TaskService {
         }
         if (dueDateFilter != null) {
             query.setParameter("dueDateFilter", dueDateFilter);
-        }
-        
-        if (isValidFilter(statusFilter) && isValidFilter(priorityFilter)
-                && dueDateFilter == null){
-            return getAllTasks();
         }
         
         List<Task> tasks = query.getResultList();
