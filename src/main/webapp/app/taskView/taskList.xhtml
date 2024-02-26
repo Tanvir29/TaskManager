@@ -68,7 +68,11 @@
                     <f:facet name="header">Due Date</f:facet>
                         #{task.dueDate}
                 </h:column>
-
+                
+                <h:column>
+                    <f:facet name="header">Project</f:facet>
+                        #{task.project.name}
+                </h:column>
 
                 <h:column>
                     <f:facet name="header">Assignees</f:facet>

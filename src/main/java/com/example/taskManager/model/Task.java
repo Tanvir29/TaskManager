@@ -11,7 +11,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotBlank;
@@ -61,6 +63,9 @@ public class Task implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<User> assignees;
     
+    @ManyToOne
+    @JoinColumn
+    private Project project;
     
     @PrePersist
     public void prePersist() {
@@ -147,14 +152,28 @@ public class Task implements Serializable {
         this.assignees = assignees;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 71 * hash + Objects.hashCode(this.id);
-        hash = 71 * hash + Objects.hashCode(this.title);
-        hash = 71 * hash + Objects.hashCode(this.description);
-        hash = 71 * hash + Objects.hashCode(this.status);
-        hash = 71 * hash + Objects.hashCode(this.assignees);
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.title);
+        hash = 83 * hash + Objects.hashCode(this.description);
+        hash = 83 * hash + Objects.hashCode(this.status);
+        hash = 83 * hash + Objects.hashCode(this.priority);
+        hash = 83 * hash + Objects.hashCode(this.assignDate);
+        hash = 83 * hash + Objects.hashCode(this.dueDate);
+        hash = 83 * hash + Objects.hashCode(this.feedback);
+        hash = 83 * hash + Objects.hashCode(this.comment);
+        hash = 83 * hash + Objects.hashCode(this.assignees);
+        hash = 83 * hash + Objects.hashCode(this.project);
         return hash;
     }
 
@@ -176,25 +195,38 @@ public class Task implements Serializable {
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
+        if (!Objects.equals(this.comment, other.comment)) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (this.status != other.status) {
             return false;
         }
-        return Objects.equals(this.assignees, other.assignees);
+        if (this.priority != other.priority) {
+            return false;
+        }
+        if (!Objects.equals(this.assignDate, other.assignDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.dueDate, other.dueDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.feedback, other.feedback)) {
+            return false;
+        }
+        if (!Objects.equals(this.assignees, other.assignees)) {
+            return false;
+        }
+        return Objects.equals(this.project, other.project);
     }
 
     @Override
     public String toString() {
-        return "Task{" + "id=" + id + 
-                ", title=" + title + 
-                ", description=" + description + 
-                ", status=" + status + 
-                ", priority=" + priority + 
-                ", assign date=" + assignDate + 
-                ", due date=" + dueDate + 
-                '}';
+        return "Task{" + "id=" + id + ", title=" + title + ", description=" + description + ", status=" + status + ", priority=" + priority + ", assignDate=" + assignDate + ", dueDate=" + dueDate + ", feedback=" + feedback + ", comment=" + comment + ", assignees=" + assignees + ", project=" + project + '}';
     }
+
+    
 
 }

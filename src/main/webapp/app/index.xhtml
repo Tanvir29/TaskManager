@@ -10,6 +10,20 @@
                 <div class="custom-card">
                     <div class="card-body">
                         <h:form>
+                            <h:commandButton value="New Project" styleClass="custom-button button-show" action="project/newProject?faces-redirect=true"/>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="custom-card">
+                    <div class="card-body">
+                        <h:form>
+                            <h:commandButton value="All Projects" styleClass="custom-button button-show" action="project/projects?faces-redirect=true"/>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="custom-card">
+                    <div class="card-body">
+                        <h:form>
                             <h:commandButton value="Add new task" styleClass="custom-button button-add" action="taskView/newTask?faces-redirect=true"/>
                         </h:form>
                     </div>

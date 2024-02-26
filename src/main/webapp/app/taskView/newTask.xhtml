@@ -30,6 +30,13 @@
                 <f:selectItems value="#{taskBean.taskStatusValues}" />
             </h:selectOneMenu>
             <br/><br/>
+            
+            <h:outputLabel for="project" value="Project:" />
+            <h:selectOneMenu id="project" value="#{taskBean.task.project}" required="true">
+                <f:selectItems value="#{projectBean.projectList}" var="project"
+                               itemLabel="#{project.name}" itemValue="#{project}"/>
+            </h:selectOneMenu>
+            <br/><br/>
 
             <h:outputLabel for="priority" value="Priority:" />
             <h:selectOneMenu id="priority" value="#{taskBean.task.priority}" required="true">

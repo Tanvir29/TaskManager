@@ -1,0 +1,55 @@
+<ui:composition template="../template/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="jakarta.faces.facelets"
+                >
+    <ui:param name="title" value="Projects" />
+    <ui:define name="content">
+        <div class="container mt-4">
+
+            <h1 class="text-center mb-4">All Projects</h1>
+
+            <h:dataTable value="#{projectBean.getAllProjects()}" var="project" styleClass="table table-striped">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{project.name}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    <h:outputText value="#{project.description}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Start date</f:facet>
+                    <h:outputText value="#{project.startDate}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">End date</f:facet>
+                    <h:outputText value="#{project.endDate}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Status</f:facet>
+                    <h:outputText value="#{project.status}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Manager</f:facet>
+                    <h:outputText value="#{project.owner.name}" />
+                </h:column>
+           
+                <h:column>
+                    <f:facet name="header">Action</f:facet>
+                    <h:link value="Edit" class="btn btn-secondary" outcome="editProject">
+                        <f:param name="id" value="#{project.id}" />
+                    </h:link>
+                </h:column>
+                
+                <h:column>
+                    <h:form>
+                        <h:commandButton value="Delete" class="btn btn-danger"
+                                         action="#{projectBean.deleteProject(project)}" />
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </div>
+    </ui:define>
+</ui:composition>
