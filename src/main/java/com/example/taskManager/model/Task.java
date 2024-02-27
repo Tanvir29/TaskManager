@@ -54,12 +54,12 @@ public class Task implements Serializable {
     
     @NotNull
     private LocalDate dueDate;
-
+     
     @OneToOne
     private Feedback feedback;
 
     private String comment;
-
+    
     @ManyToMany(fetch = FetchType.EAGER)
     private List<User> assignees;
     
@@ -216,17 +216,11 @@ public class Task implements Serializable {
         if (!Objects.equals(this.feedback, other.feedback)) {
             return false;
         }
-        if (!Objects.equals(this.assignees, other.assignees)) {
-            return false;
-        }
-        return Objects.equals(this.project, other.project);
+        return Objects.equals(this.assignees, other.assignees);
     }
 
     @Override
     public String toString() {
         return "Task{" + "id=" + id + ", title=" + title + ", description=" + description + ", status=" + status + ", priority=" + priority + ", assignDate=" + assignDate + ", dueDate=" + dueDate + ", feedback=" + feedback + ", comment=" + comment + ", assignees=" + assignees + ", project=" + project + '}';
     }
-
-    
-
 }

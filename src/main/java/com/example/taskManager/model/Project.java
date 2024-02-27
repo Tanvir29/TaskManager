@@ -45,7 +45,7 @@ public class Project implements Serializable {
     @Enumerated(EnumType.STRING)
     @NotNull
     private ProjectStatus status;
-    
+ 
     @ManyToOne
     private User owner;
 
@@ -55,7 +55,7 @@ public class Project implements Serializable {
     public Long getId() {
         return id;
     }
-
+  
     public void setId(Long id) {
         this.id = id;
     }
@@ -118,14 +118,15 @@ public class Project implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + Objects.hashCode(this.id);
-        hash = 79 * hash + Objects.hashCode(this.name);
-        hash = 79 * hash + Objects.hashCode(this.description);
-        hash = 79 * hash + Objects.hashCode(this.startDate);
-        hash = 79 * hash + Objects.hashCode(this.endDate);
-        hash = 79 * hash + Objects.hashCode(this.owner);
-        hash = 79 * hash + Objects.hashCode(this.tasks);
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
+        hash = 29 * hash + Objects.hashCode(this.name);
+        hash = 29 * hash + Objects.hashCode(this.description);
+        hash = 29 * hash + Objects.hashCode(this.startDate);
+        hash = 29 * hash + Objects.hashCode(this.endDate);
+        hash = 29 * hash + Objects.hashCode(this.status);
+        hash = 29 * hash + Objects.hashCode(this.owner);
+        hash = 29 * hash + Objects.hashCode(this.tasks);
         return hash;
     }
 
@@ -156,6 +157,9 @@ public class Project implements Serializable {
         if (!Objects.equals(this.endDate, other.endDate)) {
             return false;
         }
+        if (this.status != other.status) {
+            return false;
+        }
         if (!Objects.equals(this.owner, other.owner)) {
             return false;
         }
@@ -164,8 +168,9 @@ public class Project implements Serializable {
 
     @Override
     public String toString() {
-        return "Project{" + "id=" + id + ", name=" + name + ", description=" + description + ", startDate=" + startDate + ", endDate=" + endDate + ", owner=" + owner + ", tasks=" + tasks + '}';
+        return "Project{" + "id=" + id + ", name=" + name + ", description=" + description + ", startDate=" + startDate + ", endDate=" + endDate + ", status=" + status + ", owner=" + owner + ", tasks=" + tasks + '}';
     }
+
     
 
 }
