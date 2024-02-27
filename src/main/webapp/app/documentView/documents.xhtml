@@ -14,7 +14,7 @@
             <h1 class="text-center mb-4">All Documents</h1>
             
             <h:form enctype="multipart/form-data">
-                <h:inputFile id="fileUpload" value="#{documentBean.uploadedFile}" required="true" />
+                <h:inputFile id="fileUpload" value="#{documentBean.uploadedFile}" />
                 <h:commandButton value="Add document" action="#{documentBean.uploadDocument(documentBean.projectId)}" />
             </h:form>
 
@@ -26,9 +26,14 @@
                 </h:column>
                 
                 <h:column>
+                    <f:facet name="header">File Path</f:facet>
+                    <h:outputText value="#{document.filePath}" />
+                </h:column>
+                
+                <h:column>
                     <h:form>
                         <h:commandButton value="Remove" class="btn btn-danger"
-                                         action="#{projectBean.deleteProject(project)}" />
+                                         action="#{documentBean.removeDocument(document)}" />
                     </h:form>
                 </h:column>
                 

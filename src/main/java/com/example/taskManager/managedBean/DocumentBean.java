@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  *
@@ -72,8 +73,8 @@ public class DocumentBean implements  Serializable {
         document = new Document();
     }
     
-    public void findAllDocuments(Long projectId) {
-        
+    public List<Document> findAllDocuments(Long projectId) {
+        return documentService.findDocumentsOfProject(projectId);
     }
     
     public String getAbsolutePath() {
@@ -87,7 +88,26 @@ public class DocumentBean implements  Serializable {
         return directoryPath;
     }
     
-    public String uploadDocument(Long projectId) throws FileNotFoundException {
+    public void copyFile(String filePath) throws FileNotFoundException, IOException {
+        OutputStream outputStream = new FileOutputStream(filePath);
+            
+        try (InputStream inputStream = uploadedFile.getInputStream()) {
+            int read;
+            while ((read = inputStream.read()) != -1) {
+                outputStream.write(read);
+            }
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                throw e;
+            }
+        } 
+    }
+    
+    public String uploadDocument(Long projectId) throws IOException{
         if(uploadedFile != null) {
             String fileName = uploadedFile.getSubmittedFileName();
             
@@ -99,22 +119,7 @@ public class DocumentBean implements  Serializable {
                 directory.mkdirs();
             }
             
-            OutputStream outputStream = new FileOutputStream(filePath);
-            
-            try (InputStream inputStream = uploadedFile.getInputStream()) {
-                int read;
-                while ((read = inputStream.read()) != -1) {
-                    outputStream.write(read);
-                }
-            } catch (IOException e) {
-                return null;
-            } finally {
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    return null;
-                }
-            }   
+            copyFile(filePath);
             
             document.setFilePath(filePath);
             
@@ -125,10 +130,15 @@ public class DocumentBean implements  Serializable {
             
             uploadedFile = null;
             
-            return "success";
         }
-        else {
-            return null;
-        }
+        
+        return "/app/documentView/documents.xhtml?id=" + projectId + "&faces-redirect=true";
+    }
+    
+    public String removeDocument(Document document) {
+        Long projectIdOfDoc = document.getProject().getId();
+        documentService.deleteDocument(document);
+        
+        return "/app/documentView/documents.xhtml?id=" + projectIdOfDoc + "&faces-redirect=true";
     }
 }

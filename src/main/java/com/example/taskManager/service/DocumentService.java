@@ -10,6 +10,8 @@ import jakarta.ejb.TransactionAttribute;
 import jakarta.ejb.TransactionAttributeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import java.util.List;
 
 /**
  *
@@ -23,5 +25,29 @@ public class DocumentService {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void saveDocument(Document document){
         entityManager.persist(document);
+    }
+
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    public List<Document> findDocumentsOfProject(Long projectId) {
+        TypedQuery<Document> query = entityManager.createQuery("SELECT d FROM Document d WHERE d.project.id = :projectId", Document.class);
+        query.setParameter("projectId", projectId);
+        return query.getResultList();
+    }
+    
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    public Document findDocumentById(Long id) {
+        return entityManager.find(Document.class, id);
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void deleteDocument(Document document) {
+        if (entityManager.contains(document)) {
+            entityManager.remove(document);
+        } else {
+            Document managedDocument = findDocumentById(document.getId());
+            if (managedDocument != null) {
+                entityManager.remove(managedDocument);
+            }
+        }
     }
 }
