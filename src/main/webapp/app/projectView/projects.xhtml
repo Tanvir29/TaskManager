@@ -49,6 +49,12 @@
                                          action="#{projectBean.deleteProject(project)}" />
                     </h:form>
                 </h:column>
+                
+                <h:column>
+                    <h:link value="Documents" class="btn btn-primary" outcome="/app/documentView/documents">
+                        <f:param name="id" value="#{project.id}" />
+                    </h:link>
+                </h:column>
             </h:dataTable>
         </div>
     </ui:define>

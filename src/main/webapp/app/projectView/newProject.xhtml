@@ -35,11 +35,13 @@
             <h:selectOneMenu id="status" value="#{projectBean.project.status}" required="true">
                 <f:selectItems value="#{projectBean.projectStatusValues}" />
             </h:selectOneMenu>
+            <br/><br/>
             
             <h:outputLabel for="owner" value="Owner:" />
             <h:selectOneMenu id="owner" value="#{projectBean.project.owner}" required="true">
                 <f:selectItems value="#{userBean.users}" var="user" itemLabel="#{user.name}" itemValue="#{user}"/>
             </h:selectOneMenu>
+            <br/><br/><br/>
             
 
             <h:commandButton value="Create Project" action="#{projectBean.createProject}"/>

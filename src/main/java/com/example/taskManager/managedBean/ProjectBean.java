@@ -49,7 +49,7 @@ public class ProjectBean implements Serializable {
     public String createProject() {
         try {
             projectService.createProject(project);
-            return "/app/project/projects?faces-redirect=true";
+            return "/app/projectView/projects?faces-redirect=true";
         } catch (Exception e) {          
             throw e;
         }
@@ -57,12 +57,12 @@ public class ProjectBean implements Serializable {
 
      public String editProject() {
         projectService.updateProject(project);
-        return "/app/project/projects?faces-redirect=true";
+        return "/app/projectView/projects?faces-redirect=true";
     }
     
     public String deleteProject(Project project){
         projectService.deleteProject(project);
-        return "/app/project/projects?faces-redirect=true";
+        return "/app/projectView/projects?faces-redirect=true";
     }
     public ProjectStatus[] getProjectStatusValues() {
         return ProjectStatus.values();
