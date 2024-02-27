@@ -122,6 +122,7 @@ public class DocumentBean implements  Serializable {
             copyFile(filePath);
             
             document.setFilePath(filePath);
+            document.setFileName(fileName);
             
             Project project = projectService.findProjectById(projectId);
             document.setProject(project);

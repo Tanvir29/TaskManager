@@ -27,6 +27,10 @@ public class Document {
     @NotBlank
     private String filePath;
     
+    @NotNull
+    @NotBlank
+    private String fileName;
+    
     @ManyToOne
     private Project project;
     
@@ -45,6 +49,14 @@ public class Document {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
     
     public Project getProject() {
         return project;
@@ -56,6 +68,6 @@ public class Document {
 
     @Override
     public String toString() {
-        return "Document{" + "id=" + id + ", filePath=" + filePath + ", project=" + project + '}';
+        return "Document{" + "id=" + id + ", fileName=" + fileName + ", project=" + project + '}';
     }
 }
