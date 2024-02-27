@@ -33,7 +33,7 @@
             
             <h:outputLabel for="project" value="Project:" />
             <h:selectOneMenu id="project" value="#{taskBean.task.project}" required="true">
-                <f:selectItems value="#{projectBean.projectList}" var="project"
+                <f:selectItems value="#{projectBean.findAllProjects()}" var="project"
                                itemLabel="#{project.name}" itemValue="#{project}"/>
             </h:selectOneMenu>
             <br/><br/>

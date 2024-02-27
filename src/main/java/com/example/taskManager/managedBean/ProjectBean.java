@@ -39,7 +39,7 @@ public class ProjectBean implements Serializable {
         this.project = project;
     }
     
-    public List<Project> getAllProjects() {
+    public List<Project> findAllProjects() {
         return projectService.findAllProjects();
     }
     
