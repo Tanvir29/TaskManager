@@ -17,50 +17,50 @@
 
             <h:outputLabel value="Total Running Projects:"/>
             <h:outputText value="#{projectStatsBean.totalRunningProjects}"/>
-            
+
             <h:outputLabel value="Total Paused Projects:"/>
             <h:outputText value="#{projectStatsBean.totalPausedProjects}"/>
-            
+
             <h:outputLabel value="Total Cancelled Projects:"/>
             <h:outputText value="#{projectStatsBean.totalCancelledProjects}"/>
-            
+
             <h:outputLabel value="Total Cancelled Projects:"/>
             <h:outputText value="#{projectStatsBean.totalTodoProjects}"/>
         </h:panelGrid>
 
         <br/>
-
-        <h:dataTable value="#{projectBean.findAllProjects()}" var="project">
+        
+        <h2>Project Details</h2>
+        <h:dataTable value="#{projectStatsBean.projectStats}" var="projectData">
             <h:column>
                 <f:facet name="header">Project Name</f:facet>
-                <h:outputText value="#{project.name}" />
+                <h:outputText value="#{projectData.key.name}" />
             </h:column>
-            
+
             <h:column>
                 <f:facet name="header">Total Tasks</f:facet>
-                <h:outputText value="#{projectStatsBean.getTotalTasksByProject(project)}"/>
+                <h:outputText value="#{projectData.value['totalTasks']}" />
             </h:column>
-            
+
             <h:column>
                 <f:facet name="header">Overdue Tasks</f:facet>
-                <h:outputText value="#{projectStatsBean.getTotalOverduedTasksByProject(project)}"/>
+                <h:outputText value="#{projectData.value['overdueTasks']}" />
             </h:column>
-            
+
             <h:column>
                 <f:facet name="header">Completed Tasks</f:facet>
-                <h:outputText value="#{projectStatsBean.getTotalCompletedTasksByProject(project)}"/>
+                <h:outputText value="#{projectData.value['completedTasks']}" />
             </h:column>
-            
+
             <h:column>
                 <f:facet name="header">Cancelled Tasks</f:facet>
-                <h:outputText value="#{projectStatsBean.getTotalCancelledTasksByProject(project)}"/>
+                <h:outputText value="#{projectData.value['cancelledTasks']}" />
             </h:column>
-            
+
             <h:column>
                 <f:facet name="header">Ongoing Tasks</f:facet>
-                <h:outputText value="#{projectStatsBean.getTotalInProgressTasksByProject(project)}"/>
+                <h:outputText value="#{projectData.value['inProgressTasks']}" />
             </h:column>
-            
         </h:dataTable>
     </ui:define>
 </ui:composition>

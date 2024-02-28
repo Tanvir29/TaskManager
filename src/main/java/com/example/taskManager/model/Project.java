@@ -126,7 +126,6 @@ public class Project implements Serializable {
         hash = 29 * hash + Objects.hashCode(this.endDate);
         hash = 29 * hash + Objects.hashCode(this.status);
         hash = 29 * hash + Objects.hashCode(this.owner);
-        hash = 29 * hash + Objects.hashCode(this.tasks);
         return hash;
     }
 
