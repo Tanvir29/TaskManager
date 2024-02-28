@@ -27,7 +27,9 @@
                 
                 <h:column>
                     <f:facet name="header">File Name</f:facet>
-                    <h:outputText value="#{document.fileName}" />
+                        <h:outputLink value="#{document.filePath}" target="_blank">
+                            <h:outputText value="#{document.fileName}" />
+                        </h:outputLink>
                 </h:column>
                 
                 <h:column>

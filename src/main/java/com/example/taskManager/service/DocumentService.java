@@ -5,9 +5,11 @@
 package com.example.taskManager.service;
 
 import com.example.taskManager.model.Document;
+import com.example.taskManager.model.Project;
 import jakarta.ejb.Stateless;
 import jakarta.ejb.TransactionAttribute;
 import jakarta.ejb.TransactionAttributeType;
+import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -22,8 +24,17 @@ public class DocumentService {
     @PersistenceContext
     private EntityManager entityManager;
     
+    @Inject
+    private ProjectService projectService;
+    
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void saveDocument(Document document){
+    public void saveDocument(Document document, Long projectId, String fileName){
+        document.setFilePath("/home/files/" + fileName);
+        document.setFileName(fileName);
+
+        Project project = projectService.findProjectById(projectId);
+        document.setProject(project);
+        
         entityManager.persist(document);
     }
 

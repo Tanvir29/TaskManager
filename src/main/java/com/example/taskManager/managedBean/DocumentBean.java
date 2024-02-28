@@ -81,7 +81,7 @@ public class DocumentBean implements  Serializable {
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String baseDirectory = servletContext.getRealPath("/");
         
-        baseDirectory = baseDirectory.substring(0, baseDirectory.indexOf("target")) + "/src/main/uploaded_files";
+        baseDirectory = baseDirectory.substring(0, baseDirectory.indexOf("target")) + "/src/main/webapp/files";
         
         String directoryPath = Paths.get(baseDirectory).toString();
         
@@ -121,13 +121,7 @@ public class DocumentBean implements  Serializable {
             
             copyFile(filePath);
             
-            document.setFilePath(filePath);
-            document.setFileName(fileName);
-            
-            Project project = projectService.findProjectById(projectId);
-            document.setProject(project);
-            
-            documentService.saveDocument(document);
+            documentService.saveDocument(document, projectId, fileName);
             
             uploadedFile = null;
             
