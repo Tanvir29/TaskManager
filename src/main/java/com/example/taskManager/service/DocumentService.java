@@ -9,10 +9,14 @@ import com.example.taskManager.model.Project;
 import jakarta.ejb.Stateless;
 import jakarta.ejb.TransactionAttribute;
 import jakarta.ejb.TransactionAttributeType;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.servlet.ServletContext;
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -26,6 +30,29 @@ public class DocumentService {
     
     @Inject
     private ProjectService projectService;
+    
+    public String getAbsolutePath() {
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String baseDirectory = servletContext.getRealPath("/");
+        
+        baseDirectory = baseDirectory.substring(0, baseDirectory.indexOf("target")) + "/src/main/webapp/files";
+        
+        String directoryPath = Paths.get(baseDirectory).toString();
+        
+        return directoryPath;
+    }
+    
+    public String buildPath(String fileName) {
+        String directoryPath = getAbsolutePath();
+        String filePath = Paths.get(directoryPath, fileName).toString();
+
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        
+        return filePath;
+    }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void saveDocument(Document document, Long projectId, String fileName){

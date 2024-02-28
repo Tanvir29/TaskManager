@@ -77,17 +77,6 @@ public class DocumentBean implements  Serializable {
         return documentService.findDocumentsOfProject(projectId);
     }
     
-    public String getAbsolutePath() {
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String baseDirectory = servletContext.getRealPath("/");
-        
-        baseDirectory = baseDirectory.substring(0, baseDirectory.indexOf("target")) + "/src/main/webapp/files";
-        
-        String directoryPath = Paths.get(baseDirectory).toString();
-        
-        return directoryPath;
-    }
-    
     public void copyFile(String filePath) throws FileNotFoundException, IOException {
         OutputStream outputStream = new FileOutputStream(filePath);
             
@@ -111,15 +100,7 @@ public class DocumentBean implements  Serializable {
         if(uploadedFile != null) {
             String fileName = uploadedFile.getSubmittedFileName();
             
-            String directoryPath = getAbsolutePath();
-            String filePath = Paths.get(directoryPath, fileName).toString();
-            
-            File directory = new File(directoryPath);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-            
-            copyFile(filePath);
+            copyFile(documentService.buildPath(fileName));
             
             documentService.saveDocument(document, projectId, fileName);
             
